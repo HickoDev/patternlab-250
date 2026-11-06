@@ -16,7 +16,7 @@ Open [PatternLab on your computer](http://127.0.0.1:4173). Press Ctrl+C in the t
 
 ## Practice
 
-- **Practice dashboard** shows all 250 problems across 18 topics. Search by name or topic, filter by difficulty or completion, and bookmark problems for review.
+- **Practice dashboard** groups all 250 problems into 18 collapsible topics. Each header shows how many problems you have solved out of the full topic. Search, filters, and bookmarks open matching sections automatically. Clearing the filters restores the topics you opened on the dashboard.
 - **Study plan** pairs two problems per day. Start or continue from the dashboard. In a guided session the arrows follow the plan order. From the library they follow catalog order.
 - **Practice room** includes an original short prompt, sample inputs and outputs, a JavaScript editor, private notes, and links to the source platforms. Examples explain the local interface for pointer structures, stateful classes, and in-place updates.
 - **Run samples** executes your solution in an isolated browser worker with a four-second limit. Each case shows its result and any returned value or error. These are practice examples. Use the linked platform for official submissions and its full judge.

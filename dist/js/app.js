@@ -6,10 +6,13 @@ const dialog = document.querySelector('#topic-dialog');
 const source = 'https://github.com/ascherj/neetcode-250-guide';
 const prefix = 'patternlab.v1.';
 const levels = ['Easy', 'Medium', 'Hard'];
-const pageSize = 12;
+const openTopicsKey = 'patternlab.ui.openTopics';
+const collapsedMatches = new Set();
+let openTopicsOnDashboard = new Set();
 let problems,
   days,
   topics,
+  problemsByTopic,
   bySlug,
   records = new Map();
 let filters,
@@ -120,7 +123,7 @@ function library() {
   const bookmarks = route.view === 'bookmarks';
   return `<div class="page-heading"><h1>${overview ? 'Practice dashboard' : bookmarks ? 'Bookmarks' : esc(route.topic)}</h1></div>
     ${overview ? `<div class="summary">${libraryHero()}${progressCard()}</div>` : ''}
-    <section class="library" aria-label="Problem library"><div class="section-title">${overview ? '<h2>Problem library</h2>' : ''}<span class="count-label" id="lib-count"></span></div>
+    <section class="library" aria-label="Problem library"><div class="section-title">${overview ? '<h2>Problem library</h2>' : ''}<span class="count-label" id="lib-count"></span><button class="expand-topics" data-action="toggle-all-topics" hidden></button></div>
     <div class="toolbar"><label class="search-box">${icon('search', 17)}<input type="search" id="search" value="${esc(filters.query)}" placeholder="Search problems…" aria-label="Search problems"><kbd>/</kbd></label>
     ${select('topic', 'All topics', topics, filters.topic)}${select('level', 'Difficulty', levels, filters.level)}${select('status', 'Status', ['Unsolved', 'Solved'], filters.status)}</div>
     <div id="rows"></div></section>`;
@@ -131,35 +134,126 @@ function bookmarkBtn(p) {
 function solveBtn(p) {
   return `<button class="solve-toggle ${solved(p) ? 'on' : ''}" aria-label="Mark ${esc(p.name)} ${solved(p) ? 'unsolved' : 'solved'}" aria-pressed="${solved(p)}" data-action="solve" data-slug="${p.slug}" title="${solved(p) ? 'Mark unsolved' : 'Mark solved'}">${solved(p) ? icon('check', 12) : ''}</button>`;
 }
-function updateRows() {
-  const matched = problems.filter(
-    (p) =>
-      (route.view !== 'bookmarks' || saved(p)) &&
-      (!filters.topic || filters.topic === p.category) &&
-      (!filters.level || filters.level === p.difficulty) &&
-      (!filters.status || solved(p) === (filters.status === 'Solved')) &&
-      (!filters.query ||
-        (p.name + ' ' + p.category)
-          .toLowerCase()
-          .includes(filters.query.trim().toLowerCase()))
+function filteredLibrary() {
+  return Boolean(
+    route.view === 'bookmarks' ||
+      filters.query.trim() ||
+      filters.topic ||
+      filters.level ||
+      filters.status
   );
-  const pages = Math.max(1, Math.ceil(matched.length / pageSize));
-  filters.page = Math.min(pages, Math.max(1, filters.page));
-  const from = (filters.page - 1) * pageSize;
+}
+function topicGroup(topic, items, visible, index) {
+  const open = filteredLibrary()
+    ? !collapsedMatches.has(topic)
+    : openTopicsOnDashboard.has(topic);
+  const done = items.filter(solved).length;
+  const panelId = 'topic-problems-' + index;
+  const rows = visible
+    .map(
+      (p) => `<tr>
+    <td class="status-col">${solveBtn(p)}</td>
+    <td><a class="problem-title" href="${problemURL(p)}">${esc(p.name)}</a></td>
+    <td>${difficulty(p.difficulty)}</td><td class="save-col">${bookmarkBtn(p)}</td>
+  </tr>`
+    )
+    .join('');
+  return `<section class="topic-group"><h3><button class="topic-toggle" data-action="toggle-topic" data-topic="${esc(topic)}" aria-expanded="${open}" aria-controls="${panelId}">
+    ${icon('next', 15)}<span class="topic-name">${esc(topic)}</span>
+    ${visible.length < items.length ? `<span class="match-count">${visible.length} shown</span>` : ''}
+    <span class="topic-meter" aria-hidden="true"><i style="width:${(100 * done) / items.length}%"></i></span>
+    <span class="topic-count${done === items.length ? ' complete' : ''}">${done} / ${items.length} solved</span>
+  </button></h3><div id="${panelId}" ${open ? '' : 'hidden'}><table aria-label="${esc(topic)} problems">
+    <thead><tr><th class="status-col"><span class="sr">Solved</span>${icon('circle', 15)}</th><th>Problem</th><th class="difficulty-col">Difficulty</th><th class="save-col"><span class="sr">Bookmark</span></th></tr></thead>
+    <tbody>${rows}</tbody></table></div></section>`;
+}
+function syncExpandButton() {
+  const button = document.querySelector('.expand-topics');
+  const toggles = document.querySelectorAll('.topic-toggle');
+  button.hidden = toggles.length < 2;
+  button.textContent = document.querySelector(
+    '.topic-toggle[aria-expanded="true"]'
+  )
+    ? 'Collapse all'
+    : 'Expand all';
+}
+function changeTopicExpansion(buttons, open) {
+  const filtered = filteredLibrary();
+  for (const button of buttons) {
+    const topic = button.dataset.topic;
+    if (filtered) {
+      if (open) collapsedMatches.delete(topic);
+      else collapsedMatches.add(topic);
+    } else if (open) openTopicsOnDashboard.add(topic);
+    else openTopicsOnDashboard.delete(topic);
+    button.setAttribute('aria-expanded', String(open));
+    document.getElementById(button.getAttribute('aria-controls')).hidden =
+      !open;
+  }
+  if (!filtered) {
+    try {
+      localStorage.setItem(
+        openTopicsKey,
+        JSON.stringify([...openTopicsOnDashboard])
+      );
+    } catch {
+      /* Keep the display preference in memory when storage is unavailable. */
+    }
+  }
+  syncExpandButton();
+}
+function updateRows() {
+  const focus = document.activeElement;
+  const focusGroup = focus?.closest('.topic-group');
+  const query = filters.query.trim().toLowerCase();
+  const sections = [];
+  let count = 0;
+  for (const [index, topic] of topics.entries()) {
+    if (filters.topic && filters.topic !== topic) continue;
+    const items = problemsByTopic.get(topic);
+    const visible = items.filter(
+      (p) =>
+        (route.view !== 'bookmarks' || saved(p)) &&
+        (!filters.level || filters.level === p.difficulty) &&
+        (!filters.status || solved(p) === (filters.status === 'Solved')) &&
+        (!query || (p.name + ' ' + topic).toLowerCase().includes(query))
+    );
+    if (visible.length) sections.push(topicGroup(topic, items, visible, index));
+    count += visible.length;
+  }
   document.querySelector('#lib-count').textContent =
-    matched.length + ' problems';
+    count + (count === 1 ? ' problem' : ' problems');
   const emptyBookmarks = route.view === 'bookmarks' && !problems.some(saved);
-  document.querySelector('#rows').innerHTML = matched.length
-    ? `<div class="table-wrap"><table><thead><tr><th class="status-col"><span class="sr">Solved</span>${icon('circle', 15)}</th><th>Problem</th><th class="topic-col">Topic</th><th>Difficulty</th><th><span class="sr">Bookmark</span></th></tr></thead><tbody>
-    ${matched
-      .slice(from, from + pageSize)
-      .map(
-        (p) =>
-          `<tr><td class="status-col">${solveBtn(p)}</td><td><a class="problem-title" href="${problemURL(p)}">${esc(p.name)}</a></td><td class="topic-col"><a class="table-topic" href="${esc(topicURL(p.category))}">${esc(p.category)}</a></td><td>${difficulty(p.difficulty)}</td><td class="save-col">${bookmarkBtn(p)}</td></tr>`
-      )
-      .join('')}
-    </tbody></table><div class="pagination"><span>${from + 1}–${Math.min(matched.length, from + pageSize)} of ${matched.length}</span><div><button data-action="prev-page" aria-label="Previous page" ${filters.page === 1 ? 'disabled' : ''}>${icon('prev', 14)}</button><span>Page ${filters.page} of ${pages}</span><button data-action="next-page" aria-label="Next page" ${filters.page === pages ? 'disabled' : ''}>${icon('next', 14)}</button></div></div></div>`
+  document.querySelector('#rows').innerHTML = sections.length
+    ? sections.join('')
     : `<div class="empty">${icon(emptyBookmarks ? 'save' : 'search', 28)}<h3>${emptyBookmarks ? 'No bookmarks yet' : 'No matching problems'}</h3><p>${emptyBookmarks ? 'Bookmark a problem in the library to keep it here.' : 'Try a different search or clear your filters.'}</p>${emptyBookmarks ? '<a class="secondary" href="#/practice">Browse problems</a>' : '<button class="secondary" data-action="clear">Clear filters</button>'}</div>`;
+  syncExpandButton();
+  if (focusGroup) {
+    const heading = focusGroup.querySelector('.topic-toggle');
+    const replacementHeading = document.querySelector(
+      `.topic-toggle[data-topic="${CSS.escape(heading.dataset.topic)}"]`
+    );
+    const rowControl =
+      focus.dataset.slug &&
+      document.querySelector(
+        `#rows [data-action="${CSS.escape(focus.dataset.action)}"][data-slug="${CSS.escape(focus.dataset.slug)}"]`
+      );
+    (
+      rowControl ||
+      replacementHeading ||
+      document.querySelector('#search')
+    ).focus({ preventScroll: true });
+  }
+}
+function refreshProgressView() {
+  if (route.view === 'practice' || route.view === 'bookmarks') {
+    updateRows();
+    const summary = document.querySelector('.summary');
+    if (summary) summary.innerHTML = libraryHero() + progressCard();
+  } else {
+    renderContent();
+  }
+  refreshSidebar();
 }
 function plan() {
   const active = currentDay();
@@ -300,14 +394,15 @@ function navigate() {
   }
   if (next.view !== 'problem') {
     lastLibrary = location.hash.startsWith('#/') ? location.hash : '#/practice';
-    if (newKey !== routeKey)
+    if (newKey !== routeKey) {
+      collapsedMatches.clear();
       filters = {
         query: '',
         topic: next.topic,
         level: '',
-        status: '',
-        page: 1
+        status: ''
       };
+    }
     routeKey = newKey;
   }
   route = next;
@@ -387,6 +482,18 @@ document.addEventListener('click', (e) => {
   }
   if (name === 'dismiss') dialog.close();
   if (name === 'menu' || name === 'close-menu') toggleMenu(name === 'menu');
+  if (name === 'toggle-topic')
+    changeTopicExpansion(
+      [action],
+      action.getAttribute('aria-expanded') !== 'true'
+    );
+  if (name === 'toggle-all-topics') {
+    const toggles = document.querySelectorAll('.topic-toggle');
+    changeTopicExpansion(
+      toggles,
+      !document.querySelector('.topic-toggle[aria-expanded="true"]')
+    );
+  }
   if (name === 'bookmark' || name === 'solve') {
     const key = name === 'solve' ? 'solved' : 'saved';
     update(p.slug, { [key]: !record(p)[key] });
@@ -399,20 +506,15 @@ document.addEventListener('click', (e) => {
           ? 'Marked as solved'
           : 'Marked as unsolved'
     );
-    renderContent();
-    refreshSidebar();
-  }
-  if (name === 'prev-page' || name === 'next-page') {
-    filters.page += name === 'next-page' ? 1 : -1;
-    updateRows();
-    document.querySelector('.library').scrollIntoView({ block: 'start' });
+    refreshProgressView();
   }
   if (name === 'clear') {
     if (route.topic) {
       location.hash = '/practice';
       return;
     }
-    filters = { query: '', topic: '', level: '', status: '', page: 1 };
+    collapsedMatches.clear();
+    filters = { query: '', topic: '', level: '', status: '' };
     renderContent();
   }
   if (name === 'code-tab' || name === 'notes-tab') {
@@ -428,7 +530,7 @@ document.addEventListener('input', (e) => {
   const el = e.target;
   if (el.id === 'search') {
     filters.query = el.value;
-    filters.page = 1;
+    collapsedMatches.clear();
     updateRows();
   }
   if (el.id === 'code' || el.id === 'notes') {
@@ -448,7 +550,7 @@ document.addEventListener('change', (e) => {
       return;
     }
     filters[el.dataset.filter] = el.value;
-    filters.page = 1;
+    collapsedMatches.clear();
     updateRows();
   }
 });
@@ -487,16 +589,26 @@ window.addEventListener('storage', (e) => {
     const slug = e.key.slice(prefix.length);
     records.set(slug, loadRecord(slug));
   } else records = new Map(problems.map((p) => [p.slug, loadRecord(p.slug)]));
-  if (!['code', 'notes', 'search'].includes(document.activeElement?.id)) {
-    renderContent();
-    refreshSidebar();
-  }
+  if (!['code', 'notes'].includes(document.activeElement?.id))
+    refreshProgressView();
 });
 try {
   const response = await fetch('./data/catalog.json');
   if (!response.ok) throw Error('Catalog unavailable');
   ({ problems, days } = await response.json());
   topics = [...new Set(problems.map((p) => p.category))];
+  problemsByTopic = new Map(
+    topics.map((topic) => [topic, problems.filter((p) => p.category === topic)])
+  );
+  try {
+    const stored = JSON.parse(localStorage.getItem(openTopicsKey));
+    if (Array.isArray(stored))
+      openTopicsOnDashboard = new Set(
+        stored.filter((topic) => problemsByTopic.has(topic))
+      );
+  } catch {
+    /* Start with topics collapsed if the preference cannot be read. */
+  }
   bySlug = new Map(problems.map((p) => [p.slug, p]));
   records = new Map(problems.map((p) => [p.slug, loadRecord(p.slug)]));
   window.addEventListener('hashchange', navigate);

@@ -640,11 +640,84 @@ kbd {
 .toolbar .select:has([data-filter='topic']) {
   max-width: 170px;
 }
-.table-wrap {
+.expand-topics {
+  margin-left: auto;
+  padding: 5px 0 5px 10px;
+  color: var(--link);
+  font-size: 12px;
+  font-weight: 600;
+}
+.expand-topics:hover {
+  text-decoration: underline;
+}
+#rows {
+  display: grid;
+  gap: 8px;
+}
+.topic-group {
   border: 1px solid var(--line);
   border-radius: 9px;
   overflow: hidden;
   background: var(--surface);
+}
+.topic-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 9px 16px;
+  text-align: left;
+}
+.topic-toggle:hover {
+  background: #2d2c30;
+}
+.topic-toggle:focus-visible {
+  outline-offset: -3px;
+}
+.topic-toggle > .icon {
+  color: var(--muted);
+}
+.topic-toggle[aria-expanded='true'] > .icon {
+  color: var(--link);
+  transform: rotate(90deg);
+}
+.topic-name {
+  font-size: 14px;
+  font-weight: 650;
+}
+.topic-count,
+.match-count {
+  color: var(--muted);
+  font: 11px var(--mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.topic-count {
+  min-width: 94px;
+  text-align: right;
+}
+.topic-count.complete {
+  color: #40d49b;
+}
+.match-count {
+  font-size: 10px;
+}
+.topic-meter {
+  flex: 0 1 65px;
+  height: 4px;
+  margin-left: auto;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--line);
+}
+.topic-meter > i {
+  display: block;
+  height: 100%;
+  background: #40d49b;
+}
+.difficulty-col {
+  width: 110px;
 }
 table {
   width: 100%;
@@ -718,17 +791,12 @@ button.solve-toggle.on {
   letter-spacing: -0.15px;
 }
 .problem-title:hover,
-.table-topic:hover,
 .references a:hover,
 .back-link:hover,
 .day-problem a:hover {
   color: #aaa9ff;
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-.table-topic {
-  color: #b7b7bc;
-  font-size: 11.5px;
 }
 .difficulty {
   font-size: 10.5px;
@@ -765,7 +833,6 @@ button.solve-toggle.on {
   padding: 0;
 }
 .icon-btn:hover,
-.pagination button:hover:not(:disabled),
 .stepper a:hover {
   background: #313236;
   color: #aaa9ff;
@@ -781,24 +848,11 @@ button.solve-toggle.on {
   text-align: right;
   padding-right: 13px;
 }
-.pagination,
-.pagination div,
 .stepper,
 .plan-toolbar {
   display: flex;
   align-items: center;
 }
-.pagination {
-  border-top: 1px solid var(--line);
-  justify-content: space-between;
-  padding: 9px 15px;
-  color: var(--muted);
-  font-size: 11px;
-}
-.pagination div {
-  gap: 10px;
-}
-.pagination button,
 .stepper a {
   display: grid;
   place-items: center;
@@ -1416,8 +1470,23 @@ button.solve-toggle.on {
   .toolbar .select:has([data-filter='topic']) {
     max-width: none;
   }
-  .topic-col {
+  .topic-toggle {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+  .topic-name {
+    font-size: 13px;
+  }
+  .topic-count {
+    min-width: 0;
+    margin-left: auto;
+    font-size: 10px;
+  }
+  .topic-meter {
     display: none;
+  }
+  .difficulty-col {
+    width: 75px;
   }
   .status-col {
     padding-left: 8px;
@@ -1467,10 +1536,6 @@ button.solve-toggle.on {
   }
   .language {
     font-size: 9px;
-  }
-  .pagination {
-    padding: 8px;
-    font-size: 10px;
   }
 }
 @media (max-width: 360px) {
