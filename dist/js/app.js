@@ -1,10 +1,43 @@
 import { icon, esc, difficulty, topicIcons, starter, contract } from './ui.js';
 import { testCode } from './runner.js';
+import { runPython } from './python-runner.js';
+import {
+  openProgress,
+  readProgress,
+  mergeProgress,
+  makeBackup,
+  parseBackup,
+  legacyRecords
+} from './progress.js';
 
 const app = document.querySelector('#app');
 const dialog = document.querySelector('#topic-dialog');
 const source = 'https://github.com/ascherj/neetcode-250-guide';
-const prefix = 'patternlab.v1.';
+const languageKey = 'patternlab.ui.language';
+let language = 'python',
+  pendingBackup,
+  progressRevision = 0,
+  approaches;
+const changes =
+  typeof BroadcastChannel === 'function'
+    ? new BroadcastChannel('patternlab-progress-changes')
+    : null;
+const isRetry = () => route.args.get('retry') === '1';
+function codeField() {
+  if (isRetry()) return language === 'python' ? 'retryPython' : 'retryCode';
+  return language === 'python' ? 'python' : 'code';
+}
+function chosenLanguage(p) {
+  try {
+    const preferred = localStorage.getItem(languageKey);
+    if (['javascript', 'python'].includes(preferred)) return preferred;
+  } catch {
+    /* Preferences are optional. */
+  }
+  return record(p).code !== undefined && record(p).python === undefined
+    ? 'javascript'
+    : 'python';
+}
 const levels = ['Easy', 'Medium', 'Hard'];
 const openTopicsKey = 'patternlab.ui.openTopics';
 const collapsedMatches = new Set();
@@ -25,25 +58,28 @@ let route = {},
   toastTimer,
   storageOK = true;
 
-function loadRecord(slug) {
-  try {
-    return JSON.parse(localStorage.getItem(prefix + slug)) || {};
-  } catch {
-    return {};
-  }
-}
 function update(slug, data) {
-  const previous = storageOK ? loadRecord(slug) : records.get(slug);
-  const record = { ...previous, ...data };
-  records.set(slug, record);
-  try {
-    localStorage.setItem(prefix + slug, JSON.stringify(record));
-  } catch {
-    storageOK = false;
-    notify(
-      'Browser storage is unavailable. This change is kept for this session.'
-    );
-  }
+  progressRevision++;
+  records.set(slug, { ...records.get(slug), ...data });
+  if (!storageOK) return;
+  mergeProgress([[slug, data]])
+    .then(() => changes?.postMessage('saved'))
+    .catch(() => {
+      storageOK = false;
+      notify(
+        'Browser storage is unavailable. Export a backup to keep this session.'
+      );
+      document
+        .querySelectorAll('.autosave')
+        .forEach((el) => (el.textContent = 'Session only'));
+    });
+}
+async function synchronize() {
+  if (!storageOK) return;
+  const revision = progressRevision;
+  const fresh = await readProgress();
+  if (progressRevision !== revision) return synchronize();
+  if (storageOK) records = fresh;
 }
 const record = (p) => records.get(p.slug) || {};
 const solved = (p) => Boolean(record(p).solved);
@@ -70,6 +106,8 @@ function sidebar() {
     ${navLink('#/practice', 'Practice dashboard', 'grid', route.view === 'practice' && !route.topic)}
     ${navLink('#/plan', 'Study plan', 'plan', route.view === 'plan')}
     ${navLink('#/bookmarks', 'Bookmarks', 'save', route.view === 'bookmarks', problems.filter(saved).length || '')}
+    ${navLink('#/review', 'Solve again', 'repeat', route.view === 'review', problems.filter((p) => record(p).reviewAt).length || '')}
+    ${navLink('#/backup', 'Progress backup', 'db', route.view === 'backup')}
     <div class="nav-rule"></div><div class="nav-label">Topics</div>
     ${topics
       .slice(0, 5)
@@ -280,27 +318,150 @@ function plan() {
       })
       .join('')}</div>`;
 }
+function reviewAction(p) {
+  const queued = Boolean(record(p).reviewAt);
+  const label =
+    isRetry() && queued
+      ? 'Finish review'
+      : queued
+        ? 'Remove from queue'
+        : 'Solve again';
+  return `<button class="secondary" data-action="toggle-review" data-slug="${p.slug}">${icon('repeat', 15)} ${label}</button>`;
+}
+function reviewPage() {
+  const queue = problems
+    .filter((p) => record(p).reviewAt)
+    .sort((a, b) => record(a).reviewAt - record(b).reviewAt);
+  return `<div class="page-heading"><h1>Solve again</h1><p>Revisit problems in the order you added them. Each retry has its own draft.</p></div>${
+    queue.length
+      ? `<section class="panel queue-list">${queue.map((p) => `<div class="queue-row"><div><a class="problem-title" href="${problemURL(p)}?retry=1">${esc(p.name)}</a><small>${esc(p.category)}</small></div>${difficulty(p.difficulty)}<a class="secondary" href="${problemURL(p)}?retry=1">Retry ${icon('arrow', 14)}</a><button class="icon-btn" aria-label="Remove ${esc(p.name)} from queue" data-action="toggle-review" data-slug="${p.slug}">${icon('x', 15)}</button></div>`).join('')}</section>`
+      : `<div class="empty">${icon('repeat', 28)}<h3>Your queue is empty</h3><p>Use Solve again in a practice room to add a problem.</p><a class="secondary" href="#/practice">Browse problems</a></div>`
+  }`;
+}
+function strategyPanel(p) {
+  const { neetcode, leetcode, hint } = approaches[p.slug];
+  return `<details class="strategy"><summary>Complexity target &amp; constraints</summary>
+    <p><strong>NeetCode · ${esc(neetcode.kind)}</strong>${neetcode.method ? ' · ' + esc(neetcode.method) : ''}</p>
+    <dl><dt>Time</dt><dd>${esc(neetcode.time)}</dd><dt>Space</dt><dd>${esc(neetcode.space)}</dd></dl>
+    ${neetcode.variables ? `<p>${esc(neetcode.variables)}</p>` : ''}
+    <a href="${esc(neetcode.url)}" target="_blank" rel="noreferrer">NeetCode source ${icon('external', 14)}</a>
+    ${
+      leetcode.bounds.length || leetcode.requirement || leetcode.followUp
+        ? `<p><strong>LeetCode constraints</strong></p>
+      ${leetcode.bounds.length ? `<ul>${leetcode.bounds.map((b) => `<li><code>${esc(b)}</code></li>`).join('')}</ul>` : ''}
+      ${leetcode.requirement ? `<p>Required · ${esc(leetcode.requirement)}</p>` : ''}
+      ${leetcode.followUp ? `<p>Follow-up · ${esc(leetcode.followUp)}</p>` : ''}`
+        : ''
+    }
+    <a href="${esc(leetcode.url)}" target="_blank" rel="noreferrer">LeetCode statement ${icon('external', 14)}</a></details>
+    <details class="strategy"><summary>Reveal an approach</summary><p>${esc(hint)}</p>
+    <a href="${esc('https://neetcode.io/problems/' + p.slug + '/solution')}" target="_blank" rel="noreferrer">Open NeetCode solution ${icon('external', 14)}</a></details>`;
+}
+function backupPage() {
+  return `<div class="page-heading"><h1>Progress backup</h1><p>Move your practice history between browsers or computers.</p></div>
+  <div class="backup-grid"><section class="panel backup-panel"><h2>Export progress</h2><p>Download your solved status, bookmarks, notes, both languages’ drafts, and Solve again queue as one JSON file.</p>
+  <button class="primary run" data-action="export">Download backup</button></section>
+  <section class="panel backup-panel"><h2>Import progress</h2><p>Choose a PatternLab backup to preview. Imported fields replace matching local fields. Other progress is kept.</p>
+  <input id="backup-file" type="file" accept=".json,application/json" aria-label="Choose a progress backup"><div id="backup-preview" aria-live="polite"></div></section></div>`;
+}
+async function exportBackup() {
+  try {
+    try {
+      await synchronize();
+    } catch {
+      // Keep the current session exportable if the browser revokes storage.
+      storageOK = false;
+    }
+    const data = JSON.stringify(makeBackup(records), null, 2);
+    const url = URL.createObjectURL(
+      new Blob([data], { type: 'application/json' })
+    );
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download =
+      'patternlab-progress-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    notify('Backup download started.');
+  } catch (error) {
+    notify('Could not export progress: ' + error.message);
+  }
+}
+async function previewBackup(file) {
+  const output = document.querySelector('#backup-preview');
+  pendingBackup = null;
+  output.replaceChildren();
+  if (!file) return;
+  try {
+    const incoming = parseBackup(await file.text(), bySlug);
+    if (document.querySelector('#backup-file')?.files[0] !== file) return;
+    const conflicts = [...incoming].filter(([slug, fields]) =>
+      Object.entries(fields).some(
+        ([key, val]) =>
+          Object.hasOwn(records.get(slug) || {}, key) &&
+          records.get(slug)[key] !== val
+      )
+    ).length;
+    pendingBackup = incoming;
+    output.innerHTML = `<p>${incoming.size} problem records · ${conflicts} with changed local values.</p>${incoming.size ? '<button class="secondary" data-action="apply-backup">Import backup</button>' : ''}`;
+  } catch (error) {
+    output.textContent = error.message;
+  }
+}
+async function importBackup(button) {
+  if (!pendingBackup || button.disabled) return;
+  const incoming = pendingBackup;
+  const output = document.querySelector('#backup-preview');
+  button.disabled = true;
+  try {
+    if (!storageOK)
+      throw Error(
+        'Browser storage is unavailable. Import in a browser that can save progress.'
+      );
+    await mergeProgress(incoming);
+    await synchronize();
+    pendingBackup = null;
+    changes?.postMessage('import');
+    refreshSidebar();
+    output.textContent =
+      'Imported progress for ' + incoming.size + ' problems.';
+  } catch (error) {
+    output.textContent = 'Import failed: ' + error.message;
+  }
+}
 function problemPage(p) {
   const guided = route.args.get('study') === '1';
   const sequence = guided ? days.flat().map((s) => bySlug.get(s)) : problems;
   const index = sequence.indexOf(p),
     link = guided ? studyURL : problemURL;
-  const back = guided ? '#/plan?block=' + Math.floor(index / 20) : lastLibrary;
+  const back = isRetry()
+    ? '#/review'
+    : guided
+      ? '#/plan?block=' + Math.floor(index / 20)
+      : lastLibrary;
   const position = guided
     ? 'Day ' + pad(Math.floor(index / 2) + 1) + ' · ' + ((index % 2) + 1) + '/2'
     : String(index + 1).padStart(3, '0') + ' / 250';
-  return `<div class="problem-top"><a class="back-link" href="${esc(back)}">${icon('back', 15)} Back to ${back.startsWith('#/plan') ? 'study plan' : back.startsWith('#/bookmarks') ? 'bookmarks' : 'library'}</a>
-    <div class="stepper">${index ? `<a href="${link(sequence[index - 1])}" aria-label="Previous problem">${icon('prev', 14)}</a>` : ''}<span>${position}</span>${index < sequence.length - 1 ? `<a href="${link(sequence[index + 1])}" aria-label="Next problem">${icon('next', 14)}</a>` : ''}</div></div>
-    <div class="exercise-heading"><div><div class="exercise-topic">${icon(topicIcons[p.category] || 'nodes', 15)} ${esc(p.category)}</div><h1>${esc(p.name)}</h1></div><div class="exercise-actions">${bookmarkBtn(p)}<button class="secondary ${solved(p) ? 'completed' : ''}" data-action="solve" data-slug="${p.slug}">${icon(solved(p) ? 'check' : 'circle', 15)} ${solved(p) ? 'Solved' : 'Mark solved'}</button></div></div>
+  return `<div class="problem-top"><a class="back-link" href="${esc(back)}">${icon('back', 15)} Back to ${back.startsWith('#/review') ? 'Solve again' : back.startsWith('#/plan') ? 'study plan' : back.startsWith('#/bookmarks') ? 'bookmarks' : 'library'}</a>
+    <div class="stepper">${isRetry() ? '<span>Retry attempt</span>' : `${index ? `<a href="${link(sequence[index - 1])}" aria-label="Previous problem">${icon('prev', 14)}</a>` : ''}<span>${position}</span>${index < sequence.length - 1 ? `<a href="${link(sequence[index + 1])}" aria-label="Next problem">${icon('next', 14)}</a>` : ''}`}</div></div>
+    <div class="exercise-heading"><div><div class="exercise-topic">${icon(topicIcons[p.category] || 'nodes', 15)} ${esc(p.category)}</div><h1>${esc(p.name)}</h1></div><div class="exercise-actions">${bookmarkBtn(p)}${reviewAction(p)}<button class="secondary ${solved(p) ? 'completed' : ''}" data-action="solve" data-slug="${p.slug}">${icon(solved(p) ? 'check' : 'circle', 15)} ${solved(p) ? 'Solved' : 'Mark solved'}</button></div></div>
     <div class="workbench"><article class="description panel"><div class="panel-head"><h2>${icon('book', 17)} Problem</h2>${difficulty(p.difficulty)}</div><div class="description-body"><p class="prompt">${esc(p.prompt)}</p>
     ${contract(p) ? `<p class="contract">${esc(contract(p))}</p>` : ''}
-    <h3>Examples</h3>${p.cases.map((c, i) => `<div class="example"><div class="example-num">Example ${pad(i + 1)}</div><dl><dt>Input</dt><dd>${esc(sampleInput(p, c))}</dd><dt>Expected</dt><dd>${esc(JSON.stringify(c.expected))}</dd></dl></div>`).join('')}
+    ${strategyPanel(p)}<h3>Examples</h3>${p.cases.map((c, i) => `<div class="example"><div class="example-num">Example ${pad(i + 1)}</div><dl><dt>Input</dt><dd>${esc(sampleInput(p, c))}</dd><dt>Expected</dt><dd>${esc(JSON.stringify(c.expected))}</dd></dl></div>`).join('')}
     <div class="references"><h3>References</h3><a href="${esc('https://neetcode.io' + p.neetcode_url)}" target="_blank" rel="noreferrer">NeetCode guide ${icon('external', 14)}</a><a href="${esc(p.leetcode_url)}" target="_blank" rel="noreferrer">LeetCode problem ${icon('external', 14)}</a></div></div></article>
-    <section class="editor-panel panel"><div class="panel-head editor-head"><div class="editor-tabs"><button class="${editorTab === 'code' ? 'selected' : ''}" data-action="code-tab">${icon('code', 16)} Code</button><button class="${editorTab === 'notes' ? 'selected' : ''}" data-action="notes-tab">${icon('note', 15)} Notes</button></div><span class="language">${editorTab === 'code' ? 'JavaScript' : 'Plain text'}</span></div>
+    <section class="editor-panel panel"><div class="panel-head editor-head"><div class="editor-tabs"><button class="${editorTab === 'code' ? 'selected' : ''}" data-action="code-tab">${icon('code', 16)} Code</button><button class="${editorTab === 'notes' ? 'selected' : ''}" data-action="notes-tab">${icon('note', 15)} Notes</button></div>${
+      editorTab === 'code'
+        ? `<label class="select language-select"><select id="language" aria-label="Solution language">
+      <option value="python" ${language === 'python' ? 'selected' : ''}>Python</option>
+      <option value="javascript" ${language === 'javascript' ? 'selected' : ''}>JavaScript</option></select>${icon('down', 12)}</label>`
+        : '<span class="language">Plain text</span>'
+    }</div>
     ${
       editorTab === 'code'
-        ? `<div class="editor-shell"><div class="line-numbers" aria-hidden="true"></div><textarea id="code" aria-label="JavaScript solution" autocapitalize="off" autocomplete="off" spellcheck="false" wrap="off"></textarea></div>
-    <div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Saved locally' : 'Session only'}</span><button class="primary run" data-action="run" ${runController ? 'disabled' : ''}>${icon('play', 14)} ${runController ? 'Running…' : 'Run samples'}</button></div><div class="result-box" aria-live="polite"></div>`
+        ? `<div class="editor-shell"><div class="line-numbers" aria-hidden="true"></div><textarea id="code" aria-label="${language === 'python' ? 'Python' : 'JavaScript'} solution" autocapitalize="off" autocomplete="off" spellcheck="false" wrap="off"></textarea></div>
+    <div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Saved locally' : 'Session only'}</span><button class="primary run" data-action="run" ${runController ? 'disabled' : ''}>${icon('play', 14)} ${runController ? 'Running…' : 'Run samples'}</button></div><div class="result-box" aria-live="polite"></div><p class="run-limits">4 s per sample suite. ${language === 'python' ? 'Python has a 128 MiB interpreter heap limit.' : 'JavaScript memory usage is managed by your browser.'}</p>`
         : `<textarea id="notes" aria-label="Problem notes" placeholder="Write down your approach, complexity, or a detail to revisit." spellcheck="true"></textarea><div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Notes saved locally' : 'Session only'}</span></div>`
     }
     </section></div>`;
@@ -336,9 +497,9 @@ function paintResults() {
     el.innerHTML = `<h3>Run stopped</h3><p>${esc(lastResults.error)}</p>`;
     return;
   }
-  const { results, p } = lastResults,
+  const { results, p, heapMiB } = lastResults,
     passed = results.filter((x) => x.passed).length;
-  el.innerHTML = `<h3>${icon(passed === results.length ? 'check' : 'terminal', 17)} ${passed} of ${results.length} samples passed</h3>${results.map((r, i) => `<details class="result ${r.passed ? 'pass' : 'fail'}" ${r.passed ? '' : 'open'}><summary>Example ${pad(i + 1)} <span>${r.passed ? 'Passed' : 'Failed'}</span></summary><pre>${r.error ? esc(r.error) : esc('Expected  ' + JSON.stringify(p.cases[i].expected) + '\nReceived  ' + r.actual)}</pre></details>`).join('')}`;
+  el.innerHTML = `<h3>${icon(passed === results.length ? 'check' : 'terminal', 17)} ${passed} of ${results.length} samples passed</h3><p class="run-metrics">${results.reduce((sum, r) => sum + (r.elapsedMs || 0), 0).toFixed(2)} ms across samples${heapMiB != null ? ' · ' + heapMiB.toFixed(1) + ' MiB Python heap capacity' : ''}</p>${results.map((r, i) => `<details class="result ${r.passed ? 'pass' : 'fail'}" ${r.passed ? '' : 'open'}><summary>Example ${pad(i + 1)} <span>${r.elapsedMs?.toFixed(2) ?? '0'} ms · ${r.passed ? 'Passed' : 'Failed'}</span></summary><pre>${r.error ? esc(r.error) : esc('Expected  ' + JSON.stringify(p.cases[i].expected) + '\nReceived  ' + r.actual)}</pre></details>`).join('')}`;
 }
 function renderContent() {
   const main = document.querySelector('#main');
@@ -348,14 +509,16 @@ function renderContent() {
     const code = document.querySelector('#code'),
       notes = document.querySelector('#notes');
     if (code) {
-      code.value = record(p).code ?? starter(p);
+      code.value = record(p)[codeField()] ?? starter(p, language);
       lines();
       code.onscroll = () =>
         (document.querySelector('.line-numbers').scrollTop = code.scrollTop);
     }
     if (notes) notes.value = record(p).notes || '';
     paintResults();
-  } else if (route.view === 'plan') main.innerHTML = plan();
+  } else if (route.view === 'review') main.innerHTML = reviewPage();
+  else if (route.view === 'backup') main.innerHTML = backupPage();
+  else if (route.view === 'plan') main.innerHTML = plan();
   else if (route.view === 'practice' || route.view === 'bookmarks') {
     main.innerHTML = library();
     updateRows();
@@ -383,7 +546,9 @@ function navigate() {
     newKey = next.view + '/' + (next.topic || '');
   const enteringProblem =
     next.view === 'problem' &&
-    (route.slug !== next.slug || route.view !== 'problem');
+    (route.slug !== next.slug ||
+      route.view !== 'problem' ||
+      route.args?.get('retry') !== next.args.get('retry'));
   if (runController) {
     runController.abort();
     runController = null;
@@ -406,14 +571,20 @@ function navigate() {
     routeKey = newKey;
   }
   route = next;
+  if (route.view === 'problem' && bySlug.has(route.slug))
+    language = chosenLanguage(bySlug.get(route.slug));
   const name =
     route.view === 'problem'
       ? 'Practice room'
       : route.view === 'plan'
         ? 'Study plan'
-        : route.view === 'bookmarks'
-          ? 'Bookmarks'
-          : 'Practice dashboard';
+        : route.view === 'review'
+          ? 'Solve again'
+          : route.view === 'backup'
+            ? 'Progress backup'
+            : route.view === 'bookmarks'
+              ? 'Bookmarks'
+              : 'Practice dashboard';
   document.title =
     (route.view === 'problem'
       ? bySlug.get(route.slug)?.name || 'Problem'
@@ -444,8 +615,14 @@ async function run() {
   btn.disabled = true;
   btn.textContent = 'Running…';
   try {
-    const results = await testCode(p, code, controller.signal);
-    if (!controller.signal.aborted) lastResults = { results, p };
+    let report;
+    if (language === 'python') {
+      btn.textContent = 'Loading Python…';
+      report = await runPython(p, code, controller.signal, () => {
+        btn.textContent = 'Running…';
+      });
+    } else report = { results: await testCode(p, code, controller.signal) };
+    if (!controller.signal.aborted) lastResults = { ...report, p };
   } catch (error) {
     if (!controller.signal.aborted) lastResults = { error: error.message };
   } finally {
@@ -476,6 +653,26 @@ document.addEventListener('click', (e) => {
   if (!action) return;
   const name = action.dataset.action,
     p = bySlug.get(action.dataset.slug);
+  if (name === 'toggle-review') {
+    if (record(p).reviewAt) update(p.slug, { reviewAt: null });
+    else
+      update(p.slug, {
+        reviewAt: Date.now(),
+        retryCode: starter(p),
+        retryPython: starter(p, 'python')
+      });
+    if (route.view === 'problem' && isRetry()) location.hash = '/review';
+    else refreshProgressView();
+    return;
+  }
+  if (name === 'export') {
+    exportBackup();
+    return;
+  }
+  if (name === 'apply-backup') {
+    importBackup(action);
+    return;
+  }
   if (name === 'topics') {
     toggleMenu(false);
     openTopics();
@@ -534,12 +731,42 @@ document.addEventListener('input', (e) => {
     updateRows();
   }
   if (el.id === 'code' || el.id === 'notes') {
-    update(route.slug, { [el.id]: el.value });
+    if (el.id === 'code' && (runController || lastResults)) {
+      runController?.abort();
+      runController = null;
+      lastResults = null;
+      const runButton = document.querySelector('[data-action="run"]');
+      if (runButton) {
+        runButton.disabled = false;
+        runButton.innerHTML = icon('play', 14) + ' Run samples';
+      }
+      paintResults();
+    }
+    update(route.slug, {
+      [el.id === 'code' ? codeField() : 'notes']: el.value
+    });
     if (el.id === 'code') lines();
   }
 });
 document.addEventListener('change', (e) => {
   const el = e.target;
+  if (el.id === 'backup-file') {
+    previewBackup(el.files[0]);
+    return;
+  }
+  if (el.id === 'language') {
+    runController?.abort();
+    runController = null;
+    lastResults = null;
+    language = el.value;
+    try {
+      localStorage.setItem(languageKey, language);
+    } catch {
+      /* Keep the current selection. */
+    }
+    renderContent();
+    return;
+  }
   if (el.id === 'plan-block') {
     location.hash = '/plan?block=' + el.value;
     return;
@@ -579,23 +806,39 @@ document.addEventListener('keydown', (e) => {
     // Modified Tab keeps native focus navigation available in the editor.
     e.preventDefault();
     const el = e.target;
-    el.setRangeText('  ', el.selectionStart, el.selectionEnd, 'end');
+    el.setRangeText(
+      language === 'python' ? '    ' : '  ',
+      el.selectionStart,
+      el.selectionEnd,
+      'end'
+    );
     el.dispatchEvent(new Event('input', { bubbles: true }));
   }
 });
-window.addEventListener('storage', (e) => {
-  if (!problems || (e.key && !e.key.startsWith(prefix))) return;
-  if (e.key) {
-    const slug = e.key.slice(prefix.length);
-    records.set(slug, loadRecord(slug));
-  } else records = new Map(problems.map((p) => [p.slug, loadRecord(p.slug)]));
+changes?.addEventListener('message', async () => {
+  if (!route.view || !storageOK) return;
+  try {
+    await synchronize();
+  } catch {
+    notify('Could not read progress from the other tab.');
+    return;
+  }
+  if (route.view === 'backup') {
+    refreshSidebar();
+    return;
+  }
   if (!['code', 'notes'].includes(document.activeElement?.id))
     refreshProgressView();
 });
 try {
-  const response = await fetch('./data/catalog.json');
-  if (!response.ok) throw Error('Catalog unavailable');
-  ({ problems, days } = await response.json());
+  const [catalogResponse, strategyResponse] = await Promise.all([
+    fetch('./data/catalog.json'),
+    fetch('./data/strategies.json')
+  ]);
+  if (!catalogResponse.ok || !strategyResponse.ok)
+    throw Error('Catalog unavailable');
+  ({ problems, days } = await catalogResponse.json());
+  approaches = await strategyResponse.json();
   topics = [...new Set(problems.map((p) => p.category))];
   problemsByTopic = new Map(
     topics.map((topic) => [topic, problems.filter((p) => p.category === topic)])
@@ -610,7 +853,15 @@ try {
     /* Start with topics collapsed if the preference cannot be read. */
   }
   bySlug = new Map(problems.map((p) => [p.slug, p]));
-  records = new Map(problems.map((p) => [p.slug, loadRecord(p.slug)]));
+  try {
+    records = await openProgress(bySlug.keys());
+  } catch {
+    storageOK = false;
+    records = legacyRecords(bySlug.keys());
+    notify(
+      'Progress is in memory for this session. Export a backup before closing.'
+    );
+  }
   window.addEventListener('hashchange', navigate);
   navigate();
 } catch (error) {

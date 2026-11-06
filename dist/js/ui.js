@@ -1,4 +1,5 @@
 const paths = {
+  repeat: '<path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/>',
   grid: '<rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><rect x="14" y="14" width="7" height="7" rx="1.4"/>',
   plan: '<path d="M4 5.5c3-1 5.8-.5 8 1.3 2.2-1.8 5-2.3 8-1.3v13c-3-1-5.8-.5-8 1.3-2.2-1.8-5-2.3-8-1.3zM12 7v13"/>',
   save: '<path d="M6 4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17l-6-4-6 4z"/>',
@@ -73,7 +74,32 @@ export const difficulty = (level) =>
   '"><i></i>' +
   level +
   '</span>';
-export function starter(p) {
+export function starter(p, language = 'javascript') {
+  if (language === 'python') {
+    if (!p.methods)
+      return (
+        'def solve(' +
+        p.params.join(', ') +
+        '):\n    # Your code here\n    pass\n'
+      );
+    return (
+      'class Solution:\n' +
+      p.methods
+        .map((signature) => {
+          const [name, args] = signature.slice(0, -1).split('(');
+          const params = ['self', ...(args ? args.split(',') : [])];
+          return (
+            '    def ' +
+            (name === 'constructor' ? '__init__' : name) +
+            '(' +
+            params.join(', ') +
+            '):\n        pass'
+          );
+        })
+        .join('\n\n') +
+      '\n'
+    );
+  }
   if (p.methods)
     return (
       'class Solution {\n' +

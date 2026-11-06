@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { limitPythonHeap } from './runtime/memory-limit.mjs';
 
 const root = fileURLToPath(new URL('./dist/', import.meta.url));
 const port = Number(process.env.PORT || 4173);
@@ -9,18 +10,30 @@ const mime = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.py': 'text/plain; charset=utf-8',
+  '.wasm': 'application/wasm',
+  '.zip': 'application/zip',
   '.json': 'application/json',
   '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf'
 };
+const runtimeAssets = new Set([
+  'pyodide.mjs',
+  'pyodide.asm.mjs',
+  'pyodide.asm.wasm',
+  'python_stdlib.zip',
+  'pyodide-lock.json'
+]);
+let cappedWasm;
 
 const server = createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(
       new URL(req.url, 'http://localhost').pathname
     );
-    const file = path.resolve(
+    let file = path.resolve(
       root,
       '.' + (pathname === '/' ? '/index.html' : pathname)
     );
@@ -37,7 +50,28 @@ const server = createServer(async (req, res) => {
       res.writeHead(405, { Allow: 'GET, HEAD' }).end();
       return;
     }
-    const data = await readFile(file);
+    if (pathname.startsWith('/runtime/')) {
+      const name = pathname.slice('/runtime/'.length);
+      if (!runtimeAssets.has(name)) {
+        res.writeHead(404).end();
+        return;
+      }
+      file = fileURLToPath(import.meta.resolve('pyodide/' + name));
+    }
+    const data =
+      pathname === '/runtime/pyodide.asm.wasm'
+        ? (cappedWasm ??= limitPythonHeap(await readFile(file)))
+        : await readFile(file);
+    // The Python sandbox has an opaque origin. Only publish its runtime assets
+    // for cross-origin reads, never browser progress or arbitrary local paths.
+    if (
+      pathname.startsWith('/runtime/') ||
+      ['/js/python-worker.js', '/js/judge.js', '/python/judge.py'].includes(
+        pathname
+      )
+    ) {
+      res.setHeader('Access-Control-Allow-Origin', 'null');
+    }
     res.writeHead(200, {
       'Content-Type': mime[path.extname(file)],
       'X-Content-Type-Options': 'nosniff',

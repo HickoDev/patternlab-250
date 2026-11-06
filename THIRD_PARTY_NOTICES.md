@@ -26,7 +26,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## DM Sans
+## Pyodide
+
+The Python runtime is installed from the pinned Pyodide npm package and runs locally. Pyodide is distributed under the Mozilla Public License 2.0 and includes CPython and other components with their respective licenses. PatternLab lowers the maximum linear memory in its served copy of the WebAssembly module. The transformation is in `runtime/memory-limit.mjs`. [Pyodide source and license](https://github.com/pyodide/pyodide)
+
+## Practice references
+
+The complexity figures and numeric bounds identify their sources in each problem’s practice room. NeetCode recommendations and the complexity of individual editorial methods are labeled separately. External solution articles remain on their original sites.
+
+## DM Sans font
 
 The bundled DM Sans font is distributed under the SIL Open Font License 1.1.
 The font's copyright statement and full license accompany it in [dist/fonts/OFL.txt](dist/fonts/OFL.txt).

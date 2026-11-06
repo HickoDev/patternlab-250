@@ -121,6 +121,17 @@ const groups = new Set([
   'combinations',
   'subsets-ii'
 ]);
+export function sampleInterface(problem) {
+  const { slug, params, methods } = problem;
+  return {
+    slug,
+    params,
+    methods,
+    treeOutput: treeOutput.has(slug),
+    listOutput: listOutput.has(slug),
+    inPlace: inPlace.has(slug)
+  };
+}
 function sorted(array) {
   return array
     .slice()
@@ -369,16 +380,20 @@ function evaluateSample(problem, userCode, rawArgs) {
 }
 export function runSamples(problem, code) {
   return problem.cases.map(({ args, expected }) => {
+    const start = performance.now();
     try {
       const actual = evaluateSample(problem, code, args);
+      const elapsedMs = performance.now() - start;
       const passed = matches(problem.slug, actual, expected, args);
       return {
         passed,
+        elapsedMs,
         actual: (JSON.stringify(actual) ?? String(actual)).slice(0, 2000)
       };
     } catch (error) {
       return {
         passed: false,
+        elapsedMs: performance.now() - start,
         error: String(error?.message ?? error).slice(0, 500)
       };
     }

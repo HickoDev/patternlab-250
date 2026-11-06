@@ -1,0 +1,4361 @@
+{
+  "concatenation-of-array": {
+    "hint": "Write two copies of the input in sequence. The returned array holds 2n entries.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration (One Pass)",
+      "time": "O(n)",
+      "space": "O(n) output",
+      "url": "https://neetcode.io/solutions/concatenation-of-array#2-iteration-one-pass"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/concatenation-of-array/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 1000",
+        "1 ≤ nums[i] ≤ 1000"
+      ]
+    }
+  },
+  "duplicate-integer": {
+    "hint": "Scan with a set of values already seen. Stop at the first repeated value.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/duplicate-integer/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/contains-duplicate/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-10^9 ≤ nums[i] ≤ 10^9"
+      ]
+    }
+  },
+  "is-anagram": {
+    "hint": "Compare lengths, then accumulate the difference in letter counts for the two words. The alphabet has 26 letters.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n + m)",
+      "space": "O(1)",
+      "variables": "n = length of s and m = length of t",
+      "url": "https://neetcode.io/problems/is-anagram/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-anagram/",
+      "bounds": [
+        "1 ≤ s.length, t.length ≤ 5 * 10^4"
+      ]
+    }
+  },
+  "two-integer-sum": {
+    "hint": "Store each number's index in a hash map. Before inserting the current value, look up the complement needed to reach the target. This also handles equal values at different indices.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/two-integer-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/two-sum/",
+      "bounds": [
+        "2 ≤ nums.length ≤ 10^4",
+        "-10^9 ≤ nums[i] ≤ 10^9",
+        "-10^9 ≤ target ≤ 10^9"
+      ],
+      "followUp": "Use less than O(n²) time."
+    }
+  },
+  "longest-common-prefix": {
+    "hint": "Scan character positions until a word ends or one differs. L is the shortest word length and k is the word count.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Vertical Scanning",
+      "time": "O(n * m)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/longest-common-prefix#2-vertical-scanning"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-common-prefix/",
+      "bounds": [
+        "1 ≤ strs.length ≤ 200",
+        "0 ≤ strs[i].length ≤ 200"
+      ]
+    }
+  },
+  "anagram-groups": {
+    "hint": "Use a fixed-length frequency tuple as each word's key. Words with the same tuple belong in the same bucket. S is total input characters and n is word count.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m)",
+      "variables": "m = number of strings and n = length of the longest string",
+      "url": "https://neetcode.io/problems/anagram-groups/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/group-anagrams/",
+      "bounds": [
+        "1 ≤ strs.length ≤ 10^4",
+        "0 ≤ strs[i].length ≤ 100"
+      ]
+    }
+  },
+  "remove-element": {
+    "hint": "Keep a write index for elements unequal to val and overwrite the retained prefix as you scan.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Pointers - II",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/remove-element#3-two-pointers-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-element/",
+      "bounds": [
+        "0 ≤ nums.length ≤ 100",
+        "0 ≤ nums[i] ≤ 50",
+        "0 ≤ val ≤ 100"
+      ],
+      "requirement": "Write the retained values into the input array."
+    }
+  },
+  "majority-element": {
+    "hint": "Use Boyer–Moore voting. Cancel different values against one another. A strict majority survives the cancellations.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Boyer-Moore Voting Algorithm",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/majority-element#5-boyer-moore-voting-algorithm"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/majority-element/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 5 * 10^4",
+        "-10^9 ≤ nums[i] ≤ 10^9"
+      ],
+      "followUp": "O(n) time and O(1) space."
+    }
+  },
+  "design-hashset": {
+    "hint": "For bounded integer keys, keep an array of machine words. Use the quotient of a key by the word width to choose a word, and its remainder to set, clear or test one bit.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Bit Manipulation",
+      "time": "O(1) per operation",
+      "space": "O(k)",
+      "url": "https://neetcode.io/solutions/design-hashset#5-bit-manipulation"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-hashset/",
+      "bounds": [
+        "0 ≤ key ≤ 10^6"
+      ]
+    }
+  },
+  "design-hashmap": {
+    "hint": "Store key/value entries in hash buckets. Search the chosen bucket on lookup, update and deletion. Grow the table to keep occupancy bounded.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Linked List",
+      "time": "O((n)/(k)) per operation",
+      "space": "O(k + m)",
+      "url": "https://neetcode.io/solutions/design-hashmap#2-linked-list"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-hashmap/",
+      "bounds": [
+        "0 ≤ key, value ≤ 10^6"
+      ]
+    }
+  },
+  "sort-an-array": {
+    "hint": "Build a max heap in the array. Repeatedly move its largest element into the sorted suffix and restore the heap iteratively.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Heap Sort",
+      "time": "O(n log n)",
+      "space": "O(log n) stack",
+      "url": "https://neetcode.io/solutions/sort-an-array#3-heap-sort"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-an-array/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 5 * 10^4",
+        "-5 * 10^4 ≤ nums[i] ≤ 5 * 10^4"
+      ],
+      "requirement": "O(n log n) time, implement sorting yourself, and minimize extra space."
+    }
+  },
+  "sort-colors": {
+    "hint": "Keep low, current and high boundaries. Swap zeros forward and twos backward while scanning the middle region.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Three Pointers - III",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/sort-colors#5-three-pointers-iii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-colors/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 300"
+      ],
+      "requirement": "Reorder in place.",
+      "followUp": "One pass with O(1) additional space."
+    }
+  },
+  "top-k-elements-in-list": {
+    "hint": "Count frequencies with a hash map, bucket values by frequency, then read the highest buckets until k values are collected.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/top-k-elements-in-list/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-10^4 ≤ nums[i] ≤ 10^4"
+      ],
+      "followUp": "Use less than O(n log n) time."
+    }
+  },
+  "string-encode-and-decode": {
+    "hint": "Prefix every string with its length and a separator. Decode by reading the length and consuming exactly that many string units. Use consistent length units in both directions.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m) per encode/decode",
+      "space": "O(m+n)",
+      "variables": "m = sum of lengths of all the strings and n = number of strings",
+      "url": "https://neetcode.io/problems/string-encode-and-decode/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/encode-and-decode-strings/",
+      "bounds": []
+    }
+  },
+  "range-sum-query-2d-immutable": {
+    "hint": "Build a two-dimensional prefix sum table. Add and subtract four corner totals to answer an inclusive rectangle query.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Dimensional Prefix Sum",
+      "time": "O(1) per query",
+      "space": "O(m * n)",
+      "url": "https://neetcode.io/solutions/range-sum-query-2d-immutable#3-two-dimensional-prefix-sum"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/range-sum-query-2d-immutable/",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 ≤ m, n ≤ 200",
+        "-10^4 ≤ matrix[i][j] ≤ 10^4",
+        "0 ≤ row1 ≤ row2 < m",
+        "0 ≤ col1 ≤ col2 < n"
+      ],
+      "requirement": "O(1) per sumRegion query."
+    }
+  },
+  "products-of-array-discluding-self": {
+    "hint": "Store prefix products in the output, then traverse backward multiplying by a running suffix product.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/products-of-array-discluding-self/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/product-of-array-except-self/",
+      "bounds": [
+        "2 ≤ nums.length ≤ 10^5",
+        "-30 ≤ nums[i] ≤ 30"
+      ],
+      "requirement": "O(n) time without division.",
+      "followUp": "O(1) extra space, excluding the result array."
+    }
+  },
+  "valid-sudoku": {
+    "hint": "Track seen digits for each row, column and box. Check all three masks before recording a filled cell.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(n^2)",
+      "variables": "n = row count in the square grid",
+      "url": "https://neetcode.io/problems/valid-sudoku/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-sudoku/",
+      "bounds": [
+        "board.length == 9",
+        "board[i].length == 9"
+      ]
+    }
+  },
+  "longest-consecutive-sequence": {
+    "hint": "Put all values in a set. Start a walk only if the predecessor is absent, so each distinct integer belongs to exactly one walk.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/longest-consecutive-sequence/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
+      "bounds": [
+        "0 ≤ nums.length ≤ 10^5",
+        "-10^9 ≤ nums[i] ≤ 10^9"
+      ],
+      "requirement": "O(n) time."
+    }
+  },
+  "best-time-to-buy-and-sell-stock-ii": {
+    "hint": "Add each positive gain between adjacent prices. Consecutive gains combine into one longer trade.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Greedy",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/best-time-to-buy-and-sell-stock-ii#5-greedy"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+      "bounds": [
+        "1 ≤ prices.length ≤ 3 * 10^4",
+        "0 ≤ prices[i] ≤ 10^4"
+      ]
+    }
+  },
+  "majority-element-ii": {
+    "hint": "Track two candidates and vote counts, then verify their actual frequencies in a second pass.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Boyer-Moore Voting Algorithm (Hash Map)",
+      "time": "O(n)",
+      "space": "O(1) output",
+      "url": "https://neetcode.io/solutions/majority-element-ii#5-boyer-moore-voting-algorithm-hash-map"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/majority-element-ii",
+      "bounds": [
+        "1 ≤ nums.length ≤ 5 * 10^4",
+        "-10^9 ≤ nums[i] ≤ 10^9"
+      ],
+      "followUp": "O(n) time and O(1) space."
+    }
+  },
+  "subarray-sum-equals-k": {
+    "hint": "Count prefix sums, starting with one empty prefix of sum zero. For each new sum s, add the number of earlier prefixes equal to s − k.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Hash Map",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/subarray-sum-equals-k#2-hash-map"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 2 * 10^4",
+        "-1000 ≤ nums[i] ≤ 1000",
+        "-10^7 ≤ k ≤ 10^7"
+      ]
+    }
+  },
+  "first-missing-positive": {
+    "hint": "Place each value v in the range 1..n at index v − 1 by swapping. Skip duplicates. Scan for the first mismatch.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Cycle Sort",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/first-missing-positive#5-cycle-sort"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/first-missing-positive/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-2^31 ≤ nums[i] ≤ 2^31 - 1"
+      ],
+      "requirement": "O(n) time and O(1) auxiliary space."
+    }
+  },
+  "reverse-string": {
+    "hint": "Swap the outer characters, then move both pointers inward.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Pointers",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/reverse-string#5-two-pointers"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-string/",
+      "bounds": [
+        "1 ≤ s.length ≤ 10^5"
+      ],
+      "requirement": "Reverse in place using O(1) extra space."
+    }
+  },
+  "is-palindrome": {
+    "hint": "Walk in from both ends, skipping nonalphanumeric characters and comparing case-folded letters as you go.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = length",
+      "url": "https://neetcode.io/problems/is-palindrome/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-palindrome/",
+      "bounds": [
+        "1 ≤ s.length ≤ 2 * 10^5"
+      ]
+    }
+  },
+  "valid-palindrome-ii": {
+    "hint": "At the first mismatch, check the remaining range twice, once skipping the left character and once the right. Use indices to avoid substring copies.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Pointers (Optimal)",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/valid-palindrome-ii#3-two-pointers-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-palindrome-ii/",
+      "bounds": [
+        "1 ≤ s.length ≤ 10^5"
+      ]
+    }
+  },
+  "merge-strings-alternately": {
+    "hint": "Read one character from each string until one runs out. Append the remaining suffix and join the output once.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "One Pointer",
+      "time": "O(n + m)",
+      "space": "O(n + m) output",
+      "url": "https://neetcode.io/solutions/merge-strings-alternately#3-one-pointer"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-strings-alternately/",
+      "bounds": [
+        "1 ≤ word1.length, word2.length ≤ 100"
+      ]
+    }
+  },
+  "merge-sorted-array": {
+    "hint": "Fill the destination backward, taking the larger of the two last unread values each time. This preserves unread values in the destination.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Three Pointers Without Extra Space - II",
+      "time": "O(m + n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/merge-sorted-array#4-three-pointers-without-extra-space-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-sorted-array/",
+      "bounds": [
+        "nums1.length == m + n",
+        "nums2.length == n",
+        "0 ≤ m, n ≤ 200",
+        "1 ≤ m + n ≤ 200",
+        "-10^9 ≤ nums1[i], nums2[j] ≤ 10^9"
+      ],
+      "followUp": "O(m + n) time."
+    }
+  },
+  "remove-duplicates-from-sorted-array": {
+    "hint": "Keep a write pointer one place beyond the unique prefix. Append a value only when it differs from the last retained value.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Pointers - II",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/remove-duplicates-from-sorted-array#3-two-pointers-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 3 * 10^4",
+        "-100 ≤ nums[i] ≤ 100"
+      ],
+      "requirement": "Compact the input in place."
+    }
+  },
+  "two-integer-sum-ii": {
+    "hint": "Use two pointers at opposite ends. A low sum moves the left pointer up and a high sum moves the right pointer down.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/two-integer-sum-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+      "bounds": [
+        "2 ≤ numbers.length ≤ 3 * 10^4",
+        "-1000 ≤ numbers[i] ≤ 1000",
+        "-1000 ≤ target ≤ 1000"
+      ],
+      "requirement": "O(1) additional space."
+    }
+  },
+  "three-integer-sum": {
+    "hint": "Sort, fix one value and find matching pairs with two pointers. Skip equal values at each level to avoid duplicate triples.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/three-integer-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/3sum/",
+      "bounds": [
+        "3 ≤ nums.length ≤ 3000",
+        "-10^5 ≤ nums[i] ≤ 10^5"
+      ]
+    }
+  },
+  "4sum": {
+    "hint": "Sort, fix the first two values and find the remaining pair with two pointers. Skip duplicates at each level.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "K-Sum + Two Pointers",
+      "time": "O(n^3)",
+      "space": "O(1) or O(n) (sort-dependent); O(m) output",
+      "url": "https://neetcode.io/solutions/4sum#4-k-sum-two-pointers"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/4sum/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 200",
+        "-10^9 ≤ nums[i] ≤ 10^9",
+        "-10^9 ≤ target ≤ 10^9"
+      ]
+    }
+  },
+  "rotate-array": {
+    "hint": "Reduce k modulo n. Reverse the whole array, then reverse the first k and last n − k elements separately.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Using Reverse",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/rotate-array#4-using-reverse"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-array/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-2^31 ≤ nums[i] ≤ 2^31 - 1",
+        "0 ≤ k ≤ 10^5"
+      ],
+      "followUp": "Try an in-place solution with O(1) additional space."
+    }
+  },
+  "max-water-container": {
+    "hint": "Evaluate the container at the two ends. Move the shorter side because a narrower container with that side cannot improve its area.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/max-water-container/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/container-with-most-water/",
+      "bounds": [
+        "n == height.length",
+        "2 ≤ n ≤ 10^5",
+        "0 ≤ height[i] ≤ 10^4"
+      ]
+    }
+  },
+  "boats-to-save-people": {
+    "hint": "Sort weights. Seat the heaviest remaining person and add the lightest if the pair fits.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Sorting + Two Pointers",
+      "time": "O(n log n)",
+      "space": "O(1) or O(n) (sort-dependent)",
+      "url": "https://neetcode.io/solutions/boats-to-save-people#1-sorting-two-pointers"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/boats-to-save-people/",
+      "bounds": [
+        "1 ≤ people.length ≤ 5 * 10^4",
+        "1 ≤ people[i] ≤ limit ≤ 3 * 10^4"
+      ]
+    }
+  },
+  "trapping-rain-water": {
+    "hint": "Use two pointers and running maxima. Settle water at the side with the lower boundary and move it inward.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/trapping-rain-water/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/trapping-rain-water/",
+      "bounds": [
+        "n == height.length",
+        "1 ≤ n ≤ 2 * 10^4",
+        "0 ≤ height[i] ≤ 10^5"
+      ]
+    }
+  },
+  "contains-duplicate-ii": {
+    "hint": "Maintain a set of the previous k positions' values and check each incoming value before adding it.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Hash Set",
+      "time": "O(n)",
+      "space": "O(min(n, k))",
+      "url": "https://neetcode.io/solutions/contains-duplicate-ii#3-hash-set"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/contains-duplicate-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-10^9 ≤ nums[i] ≤ 10^9",
+        "0 ≤ k ≤ 10^5"
+      ]
+    }
+  },
+  "buy-and-sell-crypto": {
+    "hint": "Keep the lowest price seen so far and compare each possible sale against it.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/buy-and-sell-crypto/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "bounds": [
+        "1 ≤ prices.length ≤ 10^5",
+        "0 ≤ prices[i] ≤ 10^4"
+      ]
+    }
+  },
+  "longest-substring-without-duplicates": {
+    "hint": "Track each character's most recent index. Move the window start past the previous occurrence if it lies inside the current window.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(m)",
+      "variables": "n = length of and m = number of unique characters in the string",
+      "url": "https://neetcode.io/problems/longest-substring-without-duplicates/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+      "bounds": [
+        "0 ≤ s.length ≤ 10^5"
+      ]
+    }
+  },
+  "longest-repeating-substring-with-replacement": {
+    "hint": "Maintain letter counts in a window. Its length minus its largest letter frequency is the number of edits needed to unify it.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(m)",
+      "variables": "n = string length and m = number of unique characters in the string",
+      "url": "https://neetcode.io/problems/longest-repeating-substring-with-replacement/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+      "bounds": [
+        "1 ≤ s.length ≤ 10^5",
+        "0 ≤ k ≤ s.length"
+      ]
+    }
+  },
+  "permutation-string": {
+    "hint": "Slide a window of the pattern's length and compare letter frequencies as characters enter and leave.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = maximum of the lengths of the two strings",
+      "url": "https://neetcode.io/problems/permutation-string/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/permutation-in-string/",
+      "bounds": [
+        "1 ≤ s1.length, s2.length ≤ 10^4"
+      ]
+    }
+  },
+  "minimum-size-subarray-sum": {
+    "hint": "Grow a window and keep shrinking its left edge while the sum still meets the target. Positivity makes both pointers move only forward.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Sliding Window",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/minimum-size-subarray-sum#2-sliding-window"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-size-subarray-sum/",
+      "bounds": [
+        "1 ≤ target ≤ 10^9",
+        "1 ≤ nums.length ≤ 10^5",
+        "1 ≤ nums[i] ≤ 10^4"
+      ],
+      "followUp": "After the linear solution, try the O(n log n) alternative."
+    }
+  },
+  "find-k-closest-elements": {
+    "hint": "Binary-search the left endpoint of the best k-element window. Compare the distances to the values displaced when sliding right and keep the left window on a tie.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search",
+      "time": "O(log (n - k) + k)",
+      "space": "O(k) output",
+      "url": "https://neetcode.io/solutions/find-k-closest-elements#5-binary-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-k-closest-elements/",
+      "bounds": [
+        "1 ≤ k ≤ arr.length",
+        "1 ≤ arr.length ≤ 10^4",
+        "-10^4 ≤ arr[i], x ≤ 10^4"
+      ]
+    }
+  },
+  "minimum-window-with-characters": {
+    "hint": "Track the multiplicities still missing. Expand until the window covers the pattern, then shrink while it stays valid. Save the best boundaries.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n + m)",
+      "space": "O(k)",
+      "variables": "n = length of s, m = length of t, and k = total number of unique characters in s and t",
+      "url": "https://neetcode.io/problems/minimum-window-with-characters/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-window-substring/",
+      "bounds": [
+        "m == s.length",
+        "n == t.length",
+        "1 ≤ m, n ≤ 10^5"
+      ],
+      "followUp": "O(m + n) time."
+    }
+  },
+  "sliding-window-maximum": {
+    "hint": "Keep a deque of indices with decreasing values. Remove expired indices from the front and dominated indices from the back.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/sliding-window-maximum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sliding-window-maximum/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-10^4 ≤ nums[i] ≤ 10^4",
+        "1 ≤ k ≤ nums.length"
+      ]
+    }
+  },
+  "baseball-game": {
+    "hint": "Maintain a stack of valid scores and update it according to each operation. Sum the final stack.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Stack - II",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/baseball-game#2-stack-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/baseball-game/",
+      "bounds": [
+        "1 ≤ operations.length ≤ 1000"
+      ]
+    }
+  },
+  "validate-parentheses": {
+    "hint": "Push opening brackets and require every closing bracket to match the top. Finish with an empty stack.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = string length",
+      "url": "https://neetcode.io/problems/validate-parentheses/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-parentheses/",
+      "bounds": [
+        "1 ≤ s.length ≤ 10^4"
+      ]
+    }
+  },
+  "implement-stack-using-queues": {
+    "hint": "Use one FIFO queue. On push, rotate earlier elements behind the newest one so pop and top can read the front.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Using One Queue",
+      "time": "O(1) initialization; O(n) per push; O(1) per pop",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/implement-stack-using-queues#2-using-one-queue"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-stack-using-queues/",
+      "bounds": [
+        "1 ≤ x ≤ 9"
+      ]
+    }
+  },
+  "implement-queue-using-stacks": {
+    "hint": "Use separate input and output stacks. Transfer input to output only when output is empty.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Using Two Stacks (Amortized Complexity)",
+      "time": "O(1) initialization; O(1) per push, empty; O(1) amortized per pop, peek",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/implement-queue-using-stacks#2-using-two-stacks-amortized-complexity"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-queue-using-stacks",
+      "bounds": [
+        "1 ≤ x ≤ 9"
+      ],
+      "followUp": "O(1) amortized time per operation."
+    }
+  },
+  "minimum-stack": {
+    "hint": "Store each pushed value with the minimum up to that point. Popping restores the previous minimum automatically.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1) per operation",
+      "space": "O(n)",
+      "variables": "n = maximum element count present in the stack",
+      "url": "https://neetcode.io/problems/minimum-stack/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-stack/",
+      "bounds": [
+        "-2^31 ≤ val ≤ 2^31 - 1"
+      ],
+      "requirement": "O(1) time for each method."
+    }
+  },
+  "evaluate-reverse-polish-notation": {
+    "hint": "Push numbers. At each operator pop the right operand then the left operand, compute and push the result. Divide toward zero.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/evaluate-reverse-polish-notation/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "bounds": [
+        "1 ≤ tokens.length ≤ 10^4"
+      ]
+    }
+  },
+  "generate-parentheses": {
+    "hint": "Backtrack with counts of opening and closing brackets. Add a closing one only if an unmatched opening exists. Cₙ is the nth Catalan number.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(4^n / sqrt(n))",
+      "space": "O(n)",
+      "variables": "n = number of parenthesis pairs in the string",
+      "url": "https://neetcode.io/problems/generate-parentheses/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/generate-parentheses/",
+      "bounds": [
+        "1 ≤ n ≤ 8"
+      ]
+    }
+  },
+  "asteroid-collision": {
+    "hint": "Reuse the input prefix as a stack of survivors. A negative asteroid can collide only with positive survivors at the end of the prefix. Emit the surviving prefix when done.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Without Stack",
+      "time": "O(n)",
+      "space": "O(n) output",
+      "url": "https://neetcode.io/solutions/asteroid-collision#2-without-stack"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/asteroid-collision/",
+      "bounds": [
+        "2 ≤ asteroids.length ≤ 10^4",
+        "-1000 ≤ asteroids[i] ≤ 1000",
+        "asteroids[i] != 0"
+      ]
+    }
+  },
+  "daily-temperatures": {
+    "hint": "Keep a decreasing stack of unresolved day indices. A warmer day resolves every colder index at the top.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/daily-temperatures/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/daily-temperatures/",
+      "bounds": [
+        "1 ≤ temperatures.length ≤ 10^5",
+        "30 ≤ temperatures[i] ≤ 100"
+      ]
+    }
+  },
+  "online-stock-span": {
+    "hint": "Store decreasing pairs of price and span. Merge all weaker or equal prices at the top into the new span.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Monotonic Decreasing Stack",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/online-stock-span#2-monotonic-decreasing-stack"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/online-stock-span/",
+      "bounds": [
+        "1 ≤ price ≤ 10^5"
+      ]
+    }
+  },
+  "car-fleet": {
+    "hint": "Sort cars by descending position. Track the largest arrival time ahead. A car starts a new fleet only if it would arrive later.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/car-fleet/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/car-fleet/",
+      "bounds": [
+        "n == position.length == speed.length",
+        "1 ≤ n ≤ 10^5",
+        "0 < target ≤ 10^6",
+        "0 ≤ position[i] < target",
+        "0 < speed[i] ≤ 10^6"
+      ]
+    }
+  },
+  "simplify-path": {
+    "hint": "Process path components on a stack. Ignore empty components and dots. A double dot removes the most recent directory if present.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Stack - II",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/simplify-path#2-stack-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/simplify-path/",
+      "bounds": [
+        "1 ≤ path.length ≤ 3000"
+      ]
+    }
+  },
+  "decode-string": {
+    "hint": "Parse repeat counts and nested groups using a stack. Build a compact parse tree and emit its repeated pieces into an output buffer. L is decoded length.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Stacks",
+      "time": "O(n + N)",
+      "space": "O(n + N)",
+      "url": "https://neetcode.io/solutions/decode-string#3-two-stacks"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/decode-string/",
+      "bounds": [
+        "1 ≤ s.length ≤ 30"
+      ]
+    }
+  },
+  "maximum-frequency-stack": {
+    "hint": "Track each value's frequency and keep one recency stack per frequency. Pop from the stack for the current maximum frequency.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Stack Of Stacks (Hash Map)",
+      "time": "O(1) per push; O(1) per pop",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/maximum-frequency-stack#3-stack-of-stacks-hash-map"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-frequency-stack/",
+      "bounds": [
+        "0 ≤ val ≤ 10^9"
+      ]
+    }
+  },
+  "largest-rectangle-in-histogram": {
+    "hint": "Maintain an increasing stack of bar heights and start indices. When a shorter bar arrives, close the rectangles for taller bars it displaces.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/largest-rectangle-in-histogram/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+      "bounds": [
+        "1 ≤ heights.length ≤ 10^5",
+        "0 ≤ heights[i] ≤ 10^4"
+      ]
+    }
+  },
+  "binary-search": {
+    "hint": "Halve the sorted search range after each midpoint comparison.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/binary-search/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-search/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^4",
+        "-10^4 < nums[i], target < 10^4"
+      ],
+      "requirement": "O(log n) time."
+    }
+  },
+  "search-insert-position": {
+    "hint": "Find the first index whose value is at least target, returning the array length if all values are smaller.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search (Lower Bound)",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/search-insert-position#4-binary-search-lower-bound"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-insert-position/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^4",
+        "-10^4 ≤ nums[i] ≤ 10^4",
+        "-10^4 ≤ target ≤ 10^4"
+      ],
+      "requirement": "O(log n) time."
+    }
+  },
+  "guess-number-higher-or-lower": {
+    "hint": "Binary-search 1 through n, using the sign of guess(mid) to choose the surviving half.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/guess-number-higher-or-lower#2-binary-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/guess-number-higher-or-lower/",
+      "bounds": [
+        "1 ≤ n ≤ 2^31 - 1",
+        "1 ≤ pick ≤ n"
+      ]
+    }
+  },
+  "sqrtx": {
+    "hint": "Handle zero directly. Starting from a positive upper estimate r, replace it with the integer part of (r + x/r) / 2 until its square is at most x.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Newton's Method",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/sqrtx#5-newton39s-method"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sqrtx/",
+      "bounds": [
+        "0 ≤ x ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "search-2d-matrix": {
+    "hint": "Treat the sorted matrix as one flat sorted array. Map a midpoint to a row and column by division and remainder.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log(m * n))",
+      "space": "O(1)",
+      "variables": "m = row count and n = column count in the matrix",
+      "url": "https://neetcode.io/problems/search-2d-matrix/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-a-2d-matrix/",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 ≤ m, n ≤ 100",
+        "-10^4 ≤ matrix[i][j], target ≤ 10^4"
+      ],
+      "requirement": "O(log(m × n)) time."
+    }
+  },
+  "eating-bananas": {
+    "hint": "Binary-search the eating speed. A speed passes when the sum of ceiling divisions across all piles fits in h hours. M is the largest pile.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log m)",
+      "space": "O(1)",
+      "variables": "n = array length, and m = maximum value in the array",
+      "url": "https://neetcode.io/problems/eating-bananas/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/koko-eating-bananas/",
+      "bounds": [
+        "1 ≤ piles.length ≤ 10^4",
+        "piles.length ≤ h ≤ 10^9",
+        "1 ≤ piles[i] ≤ 10^9"
+      ]
+    }
+  },
+  "capacity-to-ship-packages-within-d-days": {
+    "hint": "Binary-search capacity between the largest weight and total weight. A greedy scan counts shipping days for each candidate.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search",
+      "time": "O(n log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/capacity-to-ship-packages-within-d-days#2-binary-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
+      "bounds": [
+        "1 ≤ days ≤ weights.length ≤ 5 * 10^4",
+        "1 ≤ weights[i] ≤ 500"
+      ]
+    }
+  },
+  "find-minimum-in-rotated-sorted-array": {
+    "hint": "Compare the midpoint with the right endpoint to decide which half still contains the rotation minimum.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/find-minimum-in-rotated-sorted-array/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 5000",
+        "-5000 ≤ nums[i] ≤ 5000"
+      ],
+      "requirement": "O(log n) time."
+    }
+  },
+  "find-target-in-rotated-sorted-array": {
+    "hint": "At each midpoint identify the sorted half and test whether the target lies in its value range.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/find-target-in-rotated-sorted-array/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 5000",
+        "-10^4 ≤ nums[i] ≤ 10^4",
+        "-10^4 ≤ target ≤ 10^4"
+      ],
+      "requirement": "O(log n) time."
+    }
+  },
+  "search-in-rotated-sorted-array-ii": {
+    "hint": "Use rotated binary search. When equal values hide the sorted half, discard a matching endpoint and continue.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search",
+      "time": "O(log n) average, O(n) worst case",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/search-in-rotated-sorted-array-ii#2-binary-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 5000",
+        "-10^4 ≤ nums[i] ≤ 10^4",
+        "-10^4 ≤ target ≤ 10^4"
+      ],
+      "followUp": "Explain how duplicates affect search time."
+    }
+  },
+  "time-based-key-value-store": {
+    "hint": "Append writes to a timestamp-ordered list for each key. Binary-search the last write at or before the query time. k is writes for that key.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "set O(1), get O(log n)",
+      "space": "O(m * n)",
+      "variables": "n = total number of values associated with a key, and m = total number of keys",
+      "url": "https://neetcode.io/problems/time-based-key-value-store/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/time-based-key-value-store/",
+      "bounds": [
+        "1 ≤ key.length, value.length ≤ 100",
+        "1 ≤ timestamp ≤ 10^7"
+      ]
+    }
+  },
+  "split-array-largest-sum": {
+    "hint": "Binary-search the largest allowed group sum. Greedily count how many groups are needed for that bound.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search",
+      "time": "O(n log s)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/split-array-largest-sum#5-binary-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/split-array-largest-sum/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 1000",
+        "0 ≤ nums[i] ≤ 10^6",
+        "1 ≤ k ≤ min(50, nums.length)"
+      ]
+    }
+  },
+  "median-of-two-sorted-arrays": {
+    "hint": "Binary-search a partition of the shorter array. Adjust until both left partitions end below both right partitions, then read the median at the boundary.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log(min(n, m)))",
+      "space": "O(1)",
+      "variables": "n = size of nums1 and m = size of nums2",
+      "url": "https://neetcode.io/problems/median-of-two-sorted-arrays/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+      "bounds": [
+        "nums1.length == m",
+        "nums2.length == n",
+        "0 ≤ m ≤ 1000",
+        "0 ≤ n ≤ 1000",
+        "1 ≤ m + n ≤ 2000",
+        "-10^6 ≤ nums1[i], nums2[i] ≤ 10^6"
+      ],
+      "requirement": "O(log(m + n)) time."
+    }
+  },
+  "find-in-mountain-array": {
+    "hint": "Find the peak by comparing adjacent values, then binary-search the rising side first and the falling side second. Prefer the rising side for the lowest index.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Binary Search + Caching",
+      "time": "O(log n)",
+      "space": "O(log n)",
+      "url": "https://neetcode.io/solutions/find-in-mountain-array#3-binary-search-caching"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-in-mountain-array",
+      "bounds": [
+        "3 ≤ mountainArr.length() ≤ 10^4",
+        "0 ≤ target ≤ 10^9",
+        "0 ≤ mountainArr.get(index) ≤ 10^9"
+      ]
+    }
+  },
+  "reverse-a-linked-list": {
+    "hint": "Save next, reverse the current link, and advance the previous and current pointers.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = length of the given list",
+      "url": "https://neetcode.io/problems/reverse-a-linked-list/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-linked-list/",
+      "bounds": [
+        "-5000 ≤ Node.val ≤ 5000"
+      ]
+    }
+  },
+  "merge-two-sorted-linked-lists": {
+    "hint": "Use a dummy head and splice in the smaller front node until one list ends. Attach the remaining tail.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n + m)",
+      "space": "O(1)",
+      "variables": "n = length of list1 and m = length of list2",
+      "url": "https://neetcode.io/problems/merge-two-sorted-linked-lists/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-two-sorted-lists/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "linked-list-cycle-detection": {
+    "hint": "Advance slow by one link and fast by two. They meet exactly when a reachable cycle exists.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = length of the given list",
+      "url": "https://neetcode.io/problems/linked-list-cycle-detection/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/linked-list-cycle/",
+      "bounds": [
+        "-10^5 ≤ Node.val ≤ 10^5"
+      ],
+      "followUp": "O(1) memory."
+    }
+  },
+  "reorder-linked-list": {
+    "hint": "Find the middle, reverse the second half, then weave nodes from the two halves alternately.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = length of the given list",
+      "url": "https://neetcode.io/problems/reorder-linked-list/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reorder-list/",
+      "bounds": [
+        "1 ≤ Node.val ≤ 1000"
+      ]
+    }
+  },
+  "remove-node-from-end-of-linked-list": {
+    "hint": "Use a dummy head and a gap of n nodes between two pointers. The trailing pointer ends just before the node to unlink.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(N)",
+      "space": "O(1)",
+      "variables": "N = length of the given list",
+      "url": "https://neetcode.io/problems/remove-node-from-end-of-linked-list/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+      "bounds": [
+        "1 ≤ sz ≤ 30",
+        "0 ≤ Node.val ≤ 100",
+        "1 ≤ n ≤ sz"
+      ]
+    }
+  },
+  "copy-linked-list-with-random-pointer": {
+    "hint": "Interleave copies with original nodes, assign each copy's random pointer through its original neighbor, then separate the two lists.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = length of the given list",
+      "url": "https://neetcode.io/problems/copy-linked-list-with-random-pointer/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/copy-list-with-random-pointer/",
+      "bounds": [
+        "0 ≤ n ≤ 1000",
+        "-10^4 ≤ Node.val ≤ 10^4"
+      ]
+    }
+  },
+  "add-two-numbers": {
+    "hint": "Walk both lists together while carrying overflow into the next digit. Append a final carry if needed.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m + n)",
+      "space": "O(1)",
+      "variables": "m = length of list l1 and n = length of list l2",
+      "url": "https://neetcode.io/problems/add-two-numbers/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/add-two-numbers/",
+      "bounds": [
+        "0 ≤ Node.val ≤ 9"
+      ]
+    }
+  },
+  "find-duplicate-integer": {
+    "hint": "Treat each value as the index of the next step. Floyd's cycle-entry algorithm finds the duplicate without modifying the array.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/find-duplicate-integer/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-the-duplicate-number/",
+      "bounds": [
+        "1 ≤ n ≤ 10^5",
+        "nums.length == n + 1",
+        "1 ≤ nums[i] ≤ n"
+      ],
+      "requirement": "O(1) extra space with the input unmodified.",
+      "followUp": "O(n) time."
+    }
+  },
+  "reverse-linked-list-ii": {
+    "hint": "Find the node just before left, reverse the selected links, then reconnect both ends of the reversed segment.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration - II",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/reverse-linked-list-ii#4-iteration-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-linked-list-ii/",
+      "bounds": [
+        "1 ≤ n ≤ 500",
+        "-500 ≤ Node.val ≤ 500",
+        "1 ≤ left ≤ right ≤ n"
+      ]
+    }
+  },
+  "design-circular-queue": {
+    "hint": "Use a circular array with a head index and current size. Compute insertion and removal positions modulo capacity.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Array",
+      "time": "O(n) initialization; O(1) per enQueue, deQueue, Front, Rear, isEmpty, isFull",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/design-circular-queue#2-array"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-circular-queue/",
+      "bounds": [
+        "1 ≤ k ≤ 1000",
+        "0 ≤ value ≤ 1000"
+      ]
+    }
+  },
+  "lru-cache": {
+    "hint": "Combine a key-to-node hash map with a doubly linked recency list. Move accessed nodes to the front and evict from the back.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1) per operation",
+      "space": "O(n)",
+      "variables": "n = capacity of the LRU cache",
+      "url": "https://neetcode.io/problems/lru-cache/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lru-cache/",
+      "bounds": [
+        "1 ≤ capacity ≤ 3000",
+        "0 ≤ key ≤ 10^4",
+        "0 ≤ value ≤ 10^5"
+      ],
+      "requirement": "get and put in O(1) average time."
+    }
+  },
+  "lfu-cache": {
+    "hint": "Maintain a linked recency list per access frequency, a key-to-node map and the current minimum frequency. Evict the oldest node at the lowest frequency.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Doubly Linked List",
+      "time": "O(1) initialization; O(1) per get, put",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/lfu-cache#2-doubly-linked-list"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lfu-cache/",
+      "bounds": [
+        "1 ≤ capacity ≤ 10^4",
+        "0 ≤ key ≤ 10^5",
+        "0 ≤ value ≤ 10^9"
+      ],
+      "requirement": "get and put in O(1) average time."
+    }
+  },
+  "merge-k-sorted-linked-lists": {
+    "hint": "For the constant auxiliary-space target, merge each list into a running sorted list by relinking existing nodes. A heap reduces the time to O(N log(k + 1)) if you can spend O(k) extra space.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * k)",
+      "space": "O(1)",
+      "variables": "k = total number of lists and n = total number of nodes across all lists",
+      "url": "https://neetcode.io/problems/merge-k-sorted-linked-lists/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+      "bounds": [
+        "k == lists.length",
+        "0 ≤ k ≤ 10^4",
+        "0 ≤ lists[i].length ≤ 500",
+        "-10^4 ≤ lists[i][j] ≤ 10^4"
+      ]
+    }
+  },
+  "reverse-nodes-in-k-group": {
+    "hint": "Check for k available nodes, reverse the group in place and reconnect its boundaries. Keep the shorter suffix intact.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = length of the given list",
+      "url": "https://neetcode.io/problems/reverse-nodes-in-k-group/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-nodes-in-k-group/",
+      "bounds": [
+        "1 ≤ k ≤ n ≤ 5000",
+        "0 ≤ Node.val ≤ 1000"
+      ],
+      "followUp": "O(1) extra memory."
+    }
+  },
+  "binary-tree-inorder-traversal": {
+    "hint": "Traverse left subtree, node, then right subtree with an explicit stack. h is tree height.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iterative Depth First Search",
+      "time": "O(n)",
+      "space": "O(n) stack; O(n) output",
+      "url": "https://neetcode.io/solutions/binary-tree-inorder-traversal#2-iterative-depth-first-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "binary-tree-preorder-traversal": {
+    "hint": "Visit each node before its children. Push the right child first on a stack so the left child is visited next.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iterative Depth First Search",
+      "time": "O(n)",
+      "space": "O(n) stack; O(n) output",
+      "url": "https://neetcode.io/solutions/binary-tree-preorder-traversal#2-iterative-depth-first-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "binary-tree-postorder-traversal": {
+    "hint": "Finish both subtrees before emitting a node, using recursion or a stack of pending visits.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iterative Depth First Search - I",
+      "time": "O(n)",
+      "space": "O(n) stack; O(n) output",
+      "url": "https://neetcode.io/solutions/binary-tree-postorder-traversal#2-iterative-depth-first-search-i"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "invert-a-binary-tree": {
+    "hint": "Swap each node's children, then visit both children. h is tree height.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes in the tree",
+      "url": "https://neetcode.io/problems/invert-a-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/invert-binary-tree/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "depth-of-binary-tree": {
+    "hint": "Compute one plus the greater child depth, with zero for an empty subtree.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes in the tree",
+      "url": "https://neetcode.io/problems/depth-of-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "binary-tree-diameter": {
+    "hint": "Compute subtree heights bottom-up. At each node use the sum of child heights as a candidate diameter in edges.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes in the tree",
+      "url": "https://neetcode.io/problems/binary-tree-diameter/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/diameter-of-binary-tree/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "balanced-binary-tree": {
+    "hint": "Return each subtree's height or a sentinel for imbalance. Combine the two child results in one postorder pass.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes in the tree",
+      "url": "https://neetcode.io/problems/balanced-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/balanced-binary-tree/",
+      "bounds": [
+        "-10^4 ≤ Node.val ≤ 10^4"
+      ]
+    }
+  },
+  "same-binary-tree": {
+    "hint": "Traverse both trees together and require matching empty children and matching values at every pair.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes in the tree",
+      "url": "https://neetcode.io/problems/same-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/same-tree/",
+      "bounds": [
+        "-10^4 ≤ Node.val ≤ 10^4"
+      ]
+    }
+  },
+  "subtree-of-a-binary-tree": {
+    "hint": "Serialize preorder values and null markers as unambiguous tokens. Search for the smaller sequence using a linear pattern matcher such as KMP.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m + n)",
+      "variables": "n and m are the number of nodes in root and subRoot, respectively",
+      "url": "https://neetcode.io/problems/subtree-of-a-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subtree-of-another-tree/",
+      "bounds": [
+        "-10^4 ≤ root.val ≤ 10^4",
+        "-10^4 ≤ subRoot.val ≤ 10^4"
+      ]
+    }
+  },
+  "lowest-common-ancestor-in-binary-search-tree": {
+    "hint": "Walk down the search tree while both target values lie strictly on the same side. The first split or matching target is their ancestor.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(h)",
+      "space": "O(h)",
+      "variables": "h = height of the given tree",
+      "url": "https://neetcode.io/problems/lowest-common-ancestor-in-binary-search-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+      "bounds": [
+        "-10^9 ≤ Node.val ≤ 10^9",
+        "p != q"
+      ]
+    }
+  },
+  "insert-into-a-binary-search-tree": {
+    "hint": "Follow comparisons until the correct child slot is empty, then attach the new node.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration",
+      "time": "O(h)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/insert-into-a-binary-search-tree#2-iteration"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/insert-into-a-binary-search-tree/",
+      "bounds": [
+        "-10^8 ≤ Node.val ≤ 10^8",
+        "-10^8 ≤ val ≤ 10^8"
+      ]
+    }
+  },
+  "delete-node-in-a-bst": {
+    "hint": "Find the key and unlink it. For a node with two children, replace its value by its inorder successor and remove that successor.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration",
+      "time": "O(h)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/delete-node-in-a-bst#3-iteration"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/delete-node-in-a-bst/",
+      "bounds": [
+        "-10^5 ≤ Node.val ≤ 10^5",
+        "-10^5 ≤ key ≤ 10^5"
+      ],
+      "followUp": "O(tree height) time."
+    }
+  },
+  "level-order-traversal-of-binary-tree": {
+    "hint": "Use a queue and process exactly one frontier per level. w is maximum width.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/level-order-traversal-of-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "bounds": [
+        "-1000 ≤ Node.val ≤ 1000"
+      ]
+    }
+  },
+  "binary-tree-right-side-view": {
+    "hint": "Traverse the right subtree first and record the first node visited at each depth.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/binary-tree-right-side-view/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "bounds": [
+        "-100 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "construct-quad-tree": {
+    "hint": "Build subdivisions bottom-up from cells, merging four equal uniform children. n is side length.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Recursion (Space Optimized)",
+      "time": "O(n^2)",
+      "space": "O(log n) stack",
+      "url": "https://neetcode.io/solutions/construct-quad-tree#3-recursion-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/construct-quad-tree/",
+      "bounds": [
+        "n == grid.length == grid[i].length",
+        "n == 2^x",
+        "0 ≤ x ≤ 6"
+      ]
+    }
+  },
+  "count-good-nodes-in-binary-tree": {
+    "hint": "Carry the greatest value on the root-to-node path and count the node if it reaches or exceeds that maximum.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/count-good-nodes-in-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-good-nodes-in-binary-tree/",
+      "bounds": []
+    }
+  },
+  "valid-binary-search-tree": {
+    "hint": "Carry strict lower and upper bounds down the tree. Each ancestor comparison restricts its descendants.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/valid-binary-search-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+      "bounds": [
+        "-2^31 ≤ Node.val ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "kth-smallest-integer-in-bst": {
+    "hint": "Use iterative inorder traversal and stop after the kth value. h is tree height.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/kth-smallest-integer-in-bst/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+      "bounds": [
+        "1 ≤ k ≤ n ≤ 10^4",
+        "0 ≤ Node.val ≤ 10^4"
+      ]
+    }
+  },
+  "binary-tree-from-preorder-and-inorder-traversal": {
+    "hint": "Index inorder positions in a map. Consume preorder roots and recursively split their inorder index ranges.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of nodes",
+      "url": "https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+      "bounds": [
+        "1 ≤ preorder.length ≤ 3000",
+        "inorder.length == preorder.length",
+        "-3000 ≤ preorder[i], inorder[i] ≤ 3000"
+      ]
+    }
+  },
+  "house-robber-iii": {
+    "hint": "For each node compute the best totals with it selected and skipped. A selected node can only use skipped children.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Optimal)",
+      "time": "O(n)",
+      "space": "O(n) stack",
+      "url": "https://neetcode.io/solutions/house-robber-iii#3-dynamic-programming-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/house-robber-iii/",
+      "bounds": [
+        "0 ≤ Node.val ≤ 10^4"
+      ]
+    }
+  },
+  "delete-leaves-with-a-given-value": {
+    "hint": "Process both children before deciding whether their parent is now a target-valued leaf.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iterative Postorder Traversal (Optimal)",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/delete-leaves-with-a-given-value#3-iterative-postorder-traversal-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/delete-leaves-with-a-given-value",
+      "bounds": [
+        "1 ≤ Node.val, target ≤ 1000"
+      ]
+    }
+  },
+  "binary-tree-maximum-path-sum": {
+    "hint": "Return the best nonnegative single-branch gain to each parent. Update the overall best using a path that takes both child gains through the node.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/binary-tree-maximum-path-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+      "bounds": [
+        "-1000 ≤ Node.val ≤ 1000"
+      ]
+    }
+  },
+  "serialize-and-deserialize-binary-tree": {
+    "hint": "Serialize a preorder sequence including explicit null markers. Rebuild by consuming each token once in the same order.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = node count",
+      "url": "https://neetcode.io/problems/serialize-and-deserialize-binary-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+      "bounds": [
+        "-1000 ≤ Node.val ≤ 1000"
+      ]
+    }
+  },
+  "kth-largest-integer-in-a-stream": {
+    "hint": "Maintain a min-heap of the largest k values seen. Its root is the current kth largest.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m log k) for m additions",
+      "space": "O(k)",
+      "variables": "m = number of times add() is called, and k = rank of the largest number to be tracked (i.e., the k-th largest element)",
+      "url": "https://neetcode.io/problems/kth-largest-integer-in-a-stream/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+      "bounds": [
+        "0 ≤ nums.length ≤ 10^4",
+        "1 ≤ k ≤ nums.length + 1",
+        "-10^4 ≤ nums[i] ≤ 10^4",
+        "-10^4 ≤ val ≤ 10^4"
+      ]
+    }
+  },
+  "last-stone-weight": {
+    "hint": "Use a max-heap to retrieve the two heaviest stones, reinserting their difference if positive.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/last-stone-weight/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/last-stone-weight/",
+      "bounds": [
+        "1 ≤ stones.length ≤ 30",
+        "1 ≤ stones[i] ≤ 1000"
+      ]
+    }
+  },
+  "k-closest-points-to-origin": {
+    "hint": "Keep a size-k max-heap ordered by squared distance. Replace its farthest point when a closer point arrives.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log k)",
+      "space": "O(k)",
+      "variables": "n = array length, and k = number of points to be returned",
+      "url": "https://neetcode.io/problems/k-closest-points-to-origin/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/k-closest-points-to-origin/",
+      "bounds": [
+        "1 ≤ k ≤ points.length ≤ 10^4",
+        "-10^4 ≤ x i , y i ≤ 10^4"
+      ]
+    }
+  },
+  "kth-largest-element-in-an-array": {
+    "hint": "Use randomized quickselect to partition until the chosen pivot lands at the kth-largest rank.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log k)",
+      "space": "O(k)",
+      "variables": "n = array length, and k = rank of the largest number to be returned (i.e., the k-th largest element)",
+      "url": "https://neetcode.io/problems/kth-largest-element-in-an-array/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+      "bounds": [
+        "1 ≤ k ≤ nums.length ≤ 10^5",
+        "-10^4 ≤ nums[i] ≤ 10^4"
+      ]
+    }
+  },
+  "task-scheduling": {
+    "hint": "Count task frequencies. Use the maximum frequency and its tie count to compute the idle-slot lower bound and compare it with total tasks.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m)",
+      "space": "O(1)",
+      "variables": "m = array length",
+      "url": "https://neetcode.io/problems/task-scheduling/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/task-scheduler/",
+      "bounds": [
+        "1 ≤ tasks.length ≤ 10^4",
+        "0 ≤ n ≤ 100"
+      ]
+    }
+  },
+  "design-twitter-feed": {
+    "hint": "Track follows and per-user tweets. Merge the newest tweets of followed users with a heap, stopping after ten results. f is feed sources.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "getNewsFeed O(n log n), other methods O(1)",
+      "space": "O((N * m) + (N * M) + n)",
+      "variables": "n = number of followeeIds associated with the userId, m = maximum number of tweets by any user, N = total number of userIds, and M = maximum number of followees for any user",
+      "url": "https://neetcode.io/problems/design-twitter-feed/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-twitter/",
+      "bounds": [
+        "1 ≤ userId, followerId, followeeId ≤ 500",
+        "0 ≤ tweetId ≤ 10^4"
+      ]
+    }
+  },
+  "single-threaded-cpu": {
+    "hint": "Sort tasks by release time. When idle jump to the next release and use a heap of available tasks ordered by duration and index.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Sorting + Min-Heap (Optimal)",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/single-threaded-cpu#3-sorting-min-heap-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/single-threaded-cpu/",
+      "bounds": []
+    }
+  },
+  "reorganize-string": {
+    "hint": "Check whether the largest count fits in alternating slots. Fill even positions first with the most frequent letter, then use the remaining slots.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Frequency Count (Greedy)",
+      "time": "O(n)",
+      "space": "O(1) auxiliary; O(n) output",
+      "url": "https://neetcode.io/solutions/reorganize-string#3-frequency-count-greedy"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reorganize-string/",
+      "bounds": [
+        "1 ≤ s.length ≤ 500"
+      ]
+    }
+  },
+  "longest-happy-string": {
+    "hint": "Choose the most numerous remaining letter that does not create a run of three. Use a heap of at most three letter counts.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Greedy (Max-Heap)",
+      "time": "O(n)",
+      "space": "O(1) auxiliary; O(n) output",
+      "url": "https://neetcode.io/solutions/longest-happy-string#2-greedy-max-heap"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-happy-string/",
+      "bounds": [
+        "0 ≤ a, b, c ≤ 100",
+        "a + b + c > 0"
+      ]
+    }
+  },
+  "car-pooling": {
+    "hint": "Accumulate passenger changes at pickup and drop-off coordinates and scan sorted stops. Combine changes at the same stop before checking capacity.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Line Sweep - II",
+      "time": "O(n + N)",
+      "space": "O(N)",
+      "url": "https://neetcode.io/solutions/car-pooling#4-line-sweep-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/car-pooling/",
+      "bounds": [
+        "1 ≤ trips.length ≤ 1000",
+        "trips[i].length == 3",
+        "1 ≤ numPassengers i ≤ 100",
+        "0 ≤ from i < to i ≤ 1000",
+        "1 ≤ capacity ≤ 10^5"
+      ]
+    }
+  },
+  "find-median-in-a-data-stream": {
+    "hint": "Balance a max-heap for the lower half and a min-heap for the upper half. Read the middle value or the mean of the two heap tops.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "addNum O(log n), findMedian O(1)",
+      "space": "O(n)",
+      "variables": "n = current element count",
+      "url": "https://neetcode.io/problems/find-median-in-a-data-stream/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+      "bounds": [
+        "-10^5 ≤ num ≤ 10^5"
+      ]
+    }
+  },
+  "ipo": {
+    "hint": "Sort projects by required capital. As projects become affordable push profits into a max-heap and take the best available profit for up to k rounds.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Sorting + Max-Heap",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/ipo#3-sorting-max-heap"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/ipo/",
+      "bounds": [
+        "1 ≤ k ≤ 10^5",
+        "0 ≤ w ≤ 10^9",
+        "n == profits.length",
+        "n == capital.length",
+        "1 ≤ n ≤ 10^5",
+        "0 ≤ profits[i] ≤ 10^4",
+        "0 ≤ capital[i] ≤ 10^9"
+      ]
+    }
+  },
+  "sum-of-all-subset-xor-totals": {
+    "hint": "Any bit present in the bitwise OR occurs in half the subset XORs. Multiply the OR by 2^(n−1) for a nonempty input.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Bit Manipulation (Optimal)",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/sum-of-all-subset-xor-totals#4-bit-manipulation-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-all-subset-xor-totals",
+      "bounds": [
+        "1 ≤ nums.length ≤ 12",
+        "1 ≤ nums[i] ≤ 20"
+      ]
+    }
+  },
+  "subsets": {
+    "hint": "At each index branch on including or skipping the value. Copy each completed subset into the output.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * (2^n))",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/subsets/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subsets/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10",
+        "-10 ≤ nums[i] ≤ 10"
+      ]
+    }
+  },
+  "combination-target-sum": {
+    "hint": "Backtrack over candidates in nondecreasing index order, reusing the chosen index and stopping when the remainder is negative. d is target divided by the smallest candidate.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(2^(t/m))",
+      "space": "O(t/m)",
+      "variables": "t = given target and m = minimum value in the given array",
+      "url": "https://neetcode.io/problems/combination-target-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum/",
+      "bounds": [
+        "1 ≤ candidates.length ≤ 30",
+        "2 ≤ candidates[i] ≤ 40",
+        "1 ≤ target ≤ 40"
+      ]
+    }
+  },
+  "combination-target-sum-ii": {
+    "hint": "Sort candidates. Skip equal values at the same recursion depth and advance the index after each choice.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * (2^n))",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/combination-target-sum-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum-ii/",
+      "bounds": [
+        "1 ≤ candidates.length ≤ 100",
+        "1 ≤ candidates[i] ≤ 50",
+        "1 ≤ target ≤ 30"
+      ]
+    }
+  },
+  "combinations": {
+    "hint": "Build increasing choices and stop branches that have too few remaining values. Copy each completed combination.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Backtracking - II",
+      "time": "O(k * (n!)/((n - k)! * k!))",
+      "space": "O(k * (n!)/((n - k)! * k!)) output",
+      "url": "https://neetcode.io/solutions/combinations#2-backtracking-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combinations/",
+      "bounds": [
+        "1 ≤ n ≤ 20",
+        "1 ≤ k ≤ n"
+      ]
+    }
+  },
+  "permutations": {
+    "hint": "Swap each remaining value into the current position, generate the suffix and swap back.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * n!)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/permutations/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/permutations/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 6",
+        "-10 ≤ nums[i] ≤ 10"
+      ]
+    }
+  },
+  "subsets-ii": {
+    "hint": "Sort and process equal values in runs, choosing how many copies of each to include. U is the number of distinct subsets.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * (2^n))",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/subsets-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subsets-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10",
+        "-10 ≤ nums[i] ≤ 10"
+      ]
+    }
+  },
+  "permutations-ii": {
+    "hint": "Build permutations from remaining frequency counts so duplicate values share a branch. U is distinct permutations and d is distinct values.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Backtracking (Hash Map)",
+      "time": "O(n! * n)",
+      "space": "O(n! * n) output",
+      "url": "https://neetcode.io/solutions/permutations-ii#2-backtracking-hash-map"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/permutations-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 8",
+        "-10 ≤ nums[i] ≤ 10"
+      ]
+    }
+  },
+  "search-for-word": {
+    "hint": "Try each cell as a start. Backtrack through unused neighbors and unmark each cell on return. L is word length.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * (4^n))",
+      "space": "O(n)",
+      "variables": "m = number of cells in the given board and n = size of word",
+      "url": "https://neetcode.io/problems/search-for-word/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-search/",
+      "bounds": [
+        "m == board.length",
+        "n = board[i].length",
+        "1 ≤ m, n ≤ 6",
+        "1 ≤ word.length ≤ 15"
+      ]
+    }
+  },
+  "palindrome-partitioning": {
+    "hint": "Precompute which substrings are palindromes, then enumerate paths of valid cuts.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * (2^n))",
+      "space": "O(n)",
+      "variables": "n = length",
+      "url": "https://neetcode.io/problems/palindrome-partitioning/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/palindrome-partitioning/",
+      "bounds": [
+        "1 ≤ s.length ≤ 16"
+      ]
+    }
+  },
+  "combinations-of-a-phone-number": {
+    "hint": "Backtrack by choosing one allowed letter for each digit. B is the number of generated combinations and d is digit count.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * (4^n))",
+      "space": "O(n)",
+      "variables": "n = length",
+      "url": "https://neetcode.io/problems/combinations-of-a-phone-number/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+      "bounds": [
+        "1 ≤ digits.length ≤ 4"
+      ]
+    }
+  },
+  "matchsticks-to-square": {
+    "hint": "First require the total to be divisible by four. For each bitmask of used sticks, store the fill of the current side, advancing to the next side when its target is reached.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bit Mask)",
+      "time": "O(n * 2^n)",
+      "space": "O(n + 2^n)",
+      "url": "https://neetcode.io/solutions/matchsticks-to-square#3-dynamic-programming-bit-mask"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/matchsticks-to-square/",
+      "bounds": [
+        "1 ≤ matchsticks.length ≤ 15",
+        "1 ≤ matchsticks[i] ≤ 10^8"
+      ]
+    }
+  },
+  "partition-to-k-equal-sum-subsets": {
+    "hint": "Use a bitmask DP for the used items and track the sum in the current bucket modulo the target. Start by checking that the total is divisible by k.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bottom-Up) + Bit Mask",
+      "time": "O(n * 2^n)",
+      "space": "O(2^n)",
+      "url": "https://neetcode.io/solutions/partition-to-k-equal-sum-subsets#5-dynamic-programming-bottom-up-bit-mask"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/",
+      "bounds": [
+        "1 ≤ k ≤ nums.length ≤ 16",
+        "1 ≤ nums[i] ≤ 10^4"
+      ]
+    }
+  },
+  "n-queens": {
+    "hint": "Place a queen in each successive row. Track occupied columns and diagonals and materialize a board at each complete solution.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n!)",
+      "space": "O(n^2)",
+      "variables": "n = size of square board",
+      "url": "https://neetcode.io/problems/n-queens/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/n-queens/",
+      "bounds": [
+        "1 ≤ n ≤ 9"
+      ]
+    }
+  },
+  "n-queens-ii": {
+    "hint": "Backtrack row by row, using bit masks for columns and diagonals to enumerate only legal columns.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Backtracking (Bit Mask)",
+      "time": "O(n!)",
+      "space": "O(n) stack",
+      "url": "https://neetcode.io/solutions/n-queens-ii#4-backtracking-bit-mask"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/n-queens-ii/",
+      "bounds": [
+        "1 ≤ n ≤ 9"
+      ]
+    }
+  },
+  "word-break-ii": {
+    "hint": "Build valid word-break edges between text positions with a trie, prune positions unable to reach the end, then enumerate complete paths. L is maximum word length and D is total dictionary characters.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Top-Down) Using Trie",
+      "time": "O(m + n * 2^n)",
+      "space": "O(m + n * 2^n)",
+      "url": "https://neetcode.io/solutions/word-break-ii#5-dynamic-programming-top-down-using-trie"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-break-ii",
+      "bounds": [
+        "1 ≤ s.length ≤ 20",
+        "1 ≤ wordDict.length ≤ 1000",
+        "1 ≤ wordDict[i].length ≤ 10"
+      ]
+    }
+  },
+  "implement-prefix-tree": {
+    "hint": "Use a trie node per prefix. Insert and search by following one child per character, marking terminal nodes for exact matches.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n) per operation",
+      "space": "O(t)",
+      "variables": "n = string length and t = total number of nodes created in the Trie",
+      "url": "https://neetcode.io/problems/implement-prefix-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "bounds": [
+        "1 ≤ word.length, prefix.length ≤ 2000"
+      ]
+    }
+  },
+  "design-word-search-data-structure": {
+    "hint": "Insert words in a trie. Search follows one edge per literal and branches at dots. V is trie size, L pattern length.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n) per operation",
+      "space": "O(t + n)",
+      "variables": "n = length of and t = total number of nodes created in the Trie",
+      "url": "https://neetcode.io/problems/design-word-search-data-structure/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+      "bounds": [
+        "1 ≤ word.length ≤ 25"
+      ]
+    }
+  },
+  "extra-characters-in-a-string": {
+    "hint": "Build a trie of dictionary words and work backward over text positions. Skip one extra character or consume a matching word. L is maximum word length and D is dictionary characters.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bottom-Up) Using Trie",
+      "time": "O(n^2 + m * k)",
+      "space": "O(n + m * k)",
+      "url": "https://neetcode.io/solutions/extra-characters-in-a-string#7-dynamic-programming-bottom-up-using-trie"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/extra-characters-in-a-string/",
+      "bounds": [
+        "1 ≤ s.length ≤ 50",
+        "1 ≤ dictionary.length ≤ 50",
+        "1 ≤ dictionary[i].length ≤ 50"
+      ]
+    }
+  },
+  "search-for-word-ii": {
+    "hint": "Combine the dictionary in a trie. Run board DFS only along existing prefixes, mark visited cells temporarily and deduplicate found words. L is maximum word length.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n * 4 * (3^(t-1)) + s)",
+      "space": "O(s)",
+      "variables": "m = row count, n = column count, t = maximum length of any word and s = sum of the lengths of all the words",
+      "url": "https://neetcode.io/problems/search-for-word-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-search-ii/",
+      "bounds": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 ≤ m, n ≤ 12",
+        "1 ≤ words.length ≤ 3 * 10^4",
+        "1 ≤ words[i].length ≤ 10"
+      ]
+    }
+  },
+  "island-perimeter": {
+    "hint": "Scan each land cell and count its sides adjacent to water or the board boundary.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration - II",
+      "time": "O(m * n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/island-perimeter#4-iteration-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/island-perimeter/",
+      "bounds": [
+        "row == grid.length",
+        "col == grid[i].length",
+        "1 ≤ row, col ≤ 100"
+      ]
+    }
+  },
+  "verifying-an-alien-dictionary": {
+    "hint": "Build letter ranks and compare adjacent words at their first difference. Check the prefix length when one word ends first.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Comparing adjacent words",
+      "time": "O(n * m)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/verifying-an-alien-dictionary#2-comparing-adjacent-words"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/verifying-an-alien-dictionary/",
+      "bounds": [
+        "1 ≤ words.length ≤ 100",
+        "1 ≤ words[i].length ≤ 20",
+        "order.length == 26"
+      ]
+    }
+  },
+  "find-the-town-judge": {
+    "hint": "Count incoming and outgoing trust edges. The judge has n−1 incoming and zero outgoing edges.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Indegree & Outdegree (Optimal)",
+      "time": "O(V + E)",
+      "space": "O(V)",
+      "url": "https://neetcode.io/solutions/find-the-town-judge#2-indegree-amp-outdegree-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-the-town-judge",
+      "bounds": [
+        "1 ≤ n ≤ 1000",
+        "0 ≤ trust.length ≤ 10^4",
+        "trust[i].length == 2",
+        "a i != b i",
+        "1 ≤ a i , b i ≤ n"
+      ]
+    }
+  },
+  "count-number-of-islands": {
+    "hint": "Start a flood fill at every unvisited land cell, marking reachable land as it is discovered.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the grid",
+      "url": "https://neetcode.io/problems/count-number-of-islands/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-islands/",
+      "bounds": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 ≤ m, n ≤ 300"
+      ]
+    }
+  },
+  "max-area-of-island": {
+    "hint": "Flood fill each unvisited island and track the largest number of visited cells in a single fill.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the grid",
+      "url": "https://neetcode.io/problems/max-area-of-island/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/max-area-of-island/",
+      "bounds": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 ≤ m, n ≤ 50"
+      ]
+    }
+  },
+  "clone-graph": {
+    "hint": "Traverse the connected graph while mapping each original node to one new node. Register the clone before following its neighbors.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V)",
+      "variables": "V = number of vertices and E = number of edges",
+      "url": "https://neetcode.io/problems/clone-graph/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/clone-graph/",
+      "bounds": [
+        "1 ≤ Node.val ≤ 100"
+      ]
+    }
+  },
+  "islands-and-treasure": {
+    "hint": "Run multi-source BFS starting from every gate. The first time a room is reached gives its distance to its nearest gate.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the given grid",
+      "url": "https://neetcode.io/problems/islands-and-treasure/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/walls-and-gates/",
+      "bounds": []
+    }
+  },
+  "rotting-fruit": {
+    "hint": "Start BFS from all rotten oranges. Process one frontier per minute while tracking fresh oranges that remain.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the given grid",
+      "url": "https://neetcode.io/problems/rotting-fruit/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotting-oranges/",
+      "bounds": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 ≤ m, n ≤ 10"
+      ]
+    }
+  },
+  "pacific-atlantic-water-flow": {
+    "hint": "Search backward from each ocean's edges, moving to equal or higher neighbors. Intersect the two sets of reachable cells.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the grid",
+      "url": "https://neetcode.io/problems/pacific-atlantic-water-flow/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+      "bounds": [
+        "m == heights.length",
+        "n == heights[r].length",
+        "1 ≤ m, n ≤ 200",
+        "0 ≤ heights[r][c] ≤ 10^5"
+      ]
+    }
+  },
+  "surrounded-regions": {
+    "hint": "Mark boundary-connected O cells with a flood fill. Flip only unmarked O cells and restore the marked ones.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the matrix",
+      "url": "https://neetcode.io/problems/surrounded-regions/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/surrounded-regions/",
+      "bounds": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 ≤ m, n ≤ 200"
+      ],
+      "requirement": "Modify the board in place."
+    }
+  },
+  "open-the-lock": {
+    "hint": "Breadth-first search the combination graph, skipping deadends and visited codes. The first hit is the shortest route.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Breadth First Search - I",
+      "time": "O(d^n + m)",
+      "space": "O(d^n)",
+      "url": "https://neetcode.io/solutions/open-the-lock#1-breadth-first-search-i"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/open-the-lock/",
+      "bounds": [
+        "1 ≤ deadends.length ≤ 500",
+        "deadends[i].length == 4",
+        "target.length == 4"
+      ]
+    }
+  },
+  "course-schedule": {
+    "hint": "Build prerequisite edges and indegrees. Remove zero-indegree courses repeatedly. Completion is possible when every course is removed.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V + E)",
+      "variables": "V = number of courses (nodes) and E = number of prerequisites (edges)",
+      "url": "https://neetcode.io/problems/course-schedule/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/course-schedule/",
+      "bounds": [
+        "1 ≤ numCourses ≤ 2000",
+        "0 ≤ prerequisites.length ≤ 5000",
+        "prerequisites[i].length == 2",
+        "0 ≤ a i , b i < numCourses"
+      ]
+    }
+  },
+  "course-schedule-ii": {
+    "hint": "Run a topological sort and collect removed vertices in order. Return an empty list if a cycle leaves vertices unprocessed.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V + E)",
+      "variables": "V = number of courses (nodes) and E = number of prerequisites (edges)",
+      "url": "https://neetcode.io/problems/course-schedule-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/course-schedule-ii/",
+      "bounds": [
+        "1 ≤ numCourses ≤ 2000",
+        "0 ≤ prerequisites.length ≤ numCourses * (numCourses - 1)",
+        "prerequisites[i].length == 2",
+        "0 ≤ a i , b i < numCourses",
+        "a i != b i"
+      ]
+    }
+  },
+  "valid-tree": {
+    "hint": "Check that the edge count equals n−1 and that one traversal reaches every vertex.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V + E)",
+      "variables": "V = number vertices and E = number of edges in the graph",
+      "url": "https://neetcode.io/problems/valid-tree/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/graph-valid-tree/",
+      "bounds": []
+    }
+  },
+  "course-schedule-iv": {
+    "hint": "Precompute reachability with a boolean matrix and transitive closure. Answer each query with one lookup.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Floyd Warshall Algorithm",
+      "time": "O(V^3 + E + m)",
+      "space": "O(V^2 + E + m)",
+      "url": "https://neetcode.io/solutions/course-schedule-iv#5-floyd-warshall-algorithm"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/course-schedule-iv/",
+      "bounds": [
+        "2 ≤ numCourses ≤ 100",
+        "0 ≤ prerequisites.length ≤ (numCourses * (numCourses - 1) / 2)",
+        "prerequisites[i].length == 2",
+        "0 ≤ a i , b i ≤ numCourses - 1",
+        "a i != b i",
+        "1 ≤ queries.length ≤ 10^4",
+        "0 ≤ u i , v i ≤ numCourses - 1",
+        "u i != v i"
+      ]
+    }
+  },
+  "count-connected-components": {
+    "hint": "Traverse from each unseen vertex and count traversals, including isolated vertices.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V + E)",
+      "variables": "V = number vertices and E = number of edges in the graph",
+      "url": "https://neetcode.io/problems/count-connected-components/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
+      "bounds": []
+    }
+  },
+  "redundant-connection": {
+    "hint": "Process edges in order with union-find. The edge joining two already-connected endpoints closes the cycle.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(V + E)",
+      "space": "O(V + E)",
+      "variables": "V = number vertices and E = number of edges in the graph",
+      "url": "https://neetcode.io/problems/redundant-connection/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/redundant-connection/",
+      "bounds": [
+        "n == edges.length",
+        "3 ≤ n ≤ 1000",
+        "edges[i].length == 2",
+        "1 ≤ a i < b i ≤ edges.length",
+        "a i != b i"
+      ]
+    }
+  },
+  "accounts-merge": {
+    "hint": "Map each email to an account and union accounts sharing an email. Group by representative and sort each group's emails. E is email occurrences.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Disjoint Set Union",
+      "time": "O((n * m) log (n * m))",
+      "space": "O(n * m)",
+      "url": "https://neetcode.io/solutions/accounts-merge#3-disjoint-set-union"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/accounts-merge/",
+      "bounds": [
+        "1 ≤ accounts.length ≤ 1000",
+        "2 ≤ accounts[i].length ≤ 10",
+        "1 ≤ accounts[i][j].length ≤ 30",
+        "accounts[i][j] (for j > 0)"
+      ]
+    }
+  },
+  "evaluate-division": {
+    "hint": "Build reciprocal weighted edges. For each query, traverse a path multiplying edge weights. Reject unknown or disconnected variables.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Depth First Search",
+      "time": "O(m * n)",
+      "space": "O(n + m)",
+      "url": "https://neetcode.io/solutions/evaluate-division#2-depth-first-search"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-division/",
+      "bounds": [
+        "1 ≤ equations.length ≤ 20",
+        "equations[i].length == 2",
+        "1 ≤ A i .length, B i .length ≤ 5",
+        "values.length == equations.length",
+        "0.0 < values[i] ≤ 20.0",
+        "1 ≤ queries.length ≤ 20",
+        "queries[i].length == 2",
+        "1 ≤ C j .length, D j .length ≤ 5"
+      ]
+    }
+  },
+  "minimum-height-trees": {
+    "hint": "Remove all current leaves layer by layer until one or two tree centers remain.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Topological Sorting (BFS)",
+      "time": "O(V + E)",
+      "space": "O(V)",
+      "url": "https://neetcode.io/solutions/minimum-height-trees#4-topological-sorting-bfs"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-height-trees",
+      "bounds": [
+        "1 ≤ n ≤ 2 * 10^4",
+        "edges.length == n - 1",
+        "0 ≤ a i , b i < n",
+        "a i != b i"
+      ]
+    }
+  },
+  "word-ladder": {
+    "hint": "Use BFS over single-letter changes and mark words visited when enqueued. With ordinary string copies each generated string costs O(L) for word length L.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O((m^2) * n)",
+      "space": "O((m^2) * n)",
+      "variables": "n = number of words and m = length of the word",
+      "url": "https://neetcode.io/problems/word-ladder/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-ladder/",
+      "bounds": [
+        "1 ≤ beginWord.length ≤ 10",
+        "endWord.length == beginWord.length",
+        "1 ≤ wordList.length ≤ 5000",
+        "wordList[i].length == beginWord.length",
+        "beginWord != endWord"
+      ]
+    }
+  },
+  "path-with-minimum-effort": {
+    "hint": "Use Dijkstra with path cost equal to the maximum edge difference seen so far. Relax a neighbor when that maximum falls.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dijkstra's Algorithm",
+      "time": "O(m * n * log (m * n))",
+      "space": "O(m * n)",
+      "url": "https://neetcode.io/solutions/path-with-minimum-effort#1-dijkstra39s-algorithm"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/path-with-minimum-effort/",
+      "bounds": [
+        "rows == heights.length",
+        "columns == heights[i].length",
+        "1 ≤ rows, columns ≤ 100",
+        "1 ≤ heights[i][j] ≤ 10^6"
+      ]
+    }
+  },
+  "network-delay-time": {
+    "hint": "Apply Dijkstra from the start with a min-heap. Return the largest finite distance if every node is reachable.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(E log V)",
+      "space": "O(V + E)",
+      "variables": "E = number of edges and V = number of vertices (nodes)",
+      "url": "https://neetcode.io/problems/network-delay-time/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/network-delay-time/",
+      "bounds": [
+        "1 ≤ k ≤ n ≤ 100",
+        "1 ≤ times.length ≤ 6000",
+        "times[i].length == 3",
+        "1 ≤ u i , v i ≤ n",
+        "u i != v i",
+        "0 ≤ w i ≤ 100"
+      ]
+    }
+  },
+  "reconstruct-flight-path": {
+    "hint": "Use Hierholzer's algorithm from JFK, taking destinations in lexical order and reversing the postorder route. Preserve duplicate tickets.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(E log E)",
+      "space": "O(E)",
+      "variables": "E = number of tickets (edges)",
+      "url": "https://neetcode.io/problems/reconstruct-flight-path/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reconstruct-itinerary/",
+      "bounds": [
+        "1 ≤ tickets.length ≤ 300",
+        "tickets[i].length == 2",
+        "from i .length == 3",
+        "to i .length == 3",
+        "from i != to i"
+      ]
+    }
+  },
+  "min-cost-to-connect-points": {
+    "hint": "Use dense Prim. Keep each unconnected point's cheapest link to the tree, updating Manhattan distances on demand.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O((n^2) log n)",
+      "space": "O(n^2)",
+      "variables": "n = number of points",
+      "url": "https://neetcode.io/problems/min-cost-to-connect-points/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+      "bounds": [
+        "1 ≤ points.length ≤ 1000",
+        "-10^6 ≤ x i , y i ≤ 10^6"
+      ]
+    }
+  },
+  "swim-in-rising-water": {
+    "hint": "Use a min-heap to expand the lowest reachable elevation, tracking the largest elevation crossed before reaching the destination.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O((n^2) log n)",
+      "space": "O(n^2)",
+      "variables": "n = row count or columns of the square matrix",
+      "url": "https://neetcode.io/problems/swim-in-rising-water/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/swim-in-rising-water/",
+      "bounds": [
+        "n == grid.length",
+        "n == grid[i].length",
+        "1 ≤ n ≤ 50",
+        "0 ≤ grid[i][j] < n^2"
+      ]
+    }
+  },
+  "foreign-dictionary": {
+    "hint": "Compare adjacent words to create first-difference ordering edges, reject an invalid prefix ordering, then topologically sort all observed letters.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(N + V + E)",
+      "space": "O(V + E)",
+      "variables": "N = sum of the lengths of all the strings, V = number of unique characters (vertices), and E = number of edges",
+      "url": "https://neetcode.io/problems/foreign-dictionary/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/alien-dictionary/",
+      "bounds": []
+    }
+  },
+  "cheapest-flight-path": {
+    "hint": "Run k+1 rounds of Bellman–Ford relaxation, using the previous round's distances as the source of every update.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n + (m * k))",
+      "space": "O(n)",
+      "variables": "n = number of cities, m = number of flights, and k = number of stops",
+      "url": "https://neetcode.io/problems/cheapest-flight-path/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
+      "bounds": [
+        "2 ≤ n ≤ 100",
+        "0 ≤ flights.length ≤ (n * (n - 1) / 2)",
+        "flights[i].length == 3",
+        "0 ≤ from i , to i < n",
+        "from i != to i",
+        "1 ≤ price i ≤ 10^4",
+        "0 ≤ src, dst, k < n",
+        "src != dst"
+      ]
+    }
+  },
+  "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree": {
+    "hint": "Use Kruskal to establish the minimum weight. Among equal-weight connections, find which edges have an alternative equal-weight path after lighter components are contracted. Those alternatives distinguish optional from critical edges.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Kruskal's Algorithm + DFS",
+      "time": "O(E^2)",
+      "space": "O(V + E)",
+      "url": "https://neetcode.io/solutions/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree#4-kruskal39s-algorithm-dfs"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/",
+      "bounds": [
+        "2 ≤ n ≤ 100",
+        "1 ≤ edges.length ≤ min(200, n * (n - 1) / 2)",
+        "edges[i].length == 3",
+        "0 ≤ a i < b i < n",
+        "1 ≤ weight i ≤ 1000"
+      ]
+    }
+  },
+  "build-a-matrix-with-conditions": {
+    "hint": "Topologically sort row and column conditions separately. If both orders exist, place each number at their intersecting positions.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Topological Sort (Kahn's Algorithm)",
+      "time": "O(k^2 + n + m)",
+      "space": "O(k + n + m) auxiliary; O(k^2) output",
+      "url": "https://neetcode.io/solutions/build-a-matrix-with-conditions#2-topological-sort-kahn39s-algorithm"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/build-a-matrix-with-conditions",
+      "bounds": [
+        "2 ≤ k ≤ 400",
+        "1 ≤ rowConditions.length, colConditions.length ≤ 10^4",
+        "rowConditions[i].length == colConditions[i].length == 2",
+        "1 ≤ above i , below i , left i , right i ≤ k",
+        "above i != below i",
+        "left i != right i"
+      ]
+    }
+  },
+  "greatest-common-divisor-traversal": {
+    "hint": "Factor each value into distinct prime divisors and union indices sharing any prime. An SPF sieve up to M accelerates factoring.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Sieve of Eratosthenes + DSU",
+      "time": "O(m + n log m)",
+      "space": "O(n + m)",
+      "url": "https://neetcode.io/solutions/greatest-common-divisor-traversal#3-sieve-of-eratosthenes-dsu"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/greatest-common-divisor-traversal",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "1 ≤ nums[i] ≤ 10^5"
+      ]
+    }
+  },
+  "climbing-stairs": {
+    "hint": "Count ways using the previous two stair counts. Each route ends in either a one-step or a two-step move.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of steps",
+      "url": "https://neetcode.io/problems/climbing-stairs/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/climbing-stairs/",
+      "bounds": [
+        "1 ≤ n ≤ 45"
+      ]
+    }
+  },
+  "min-cost-climbing-stairs": {
+    "hint": "Track the minimum paid cost to reach each of the next two positions; step off from the cheaper of the two prior steps.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of steps on the staircase",
+      "url": "https://neetcode.io/problems/min-cost-climbing-stairs/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-cost-climbing-stairs/",
+      "bounds": [
+        "2 ≤ cost.length ≤ 1000",
+        "0 ≤ cost[i] ≤ 999"
+      ]
+    }
+  },
+  "n-th-tribonacci-number": {
+    "hint": "Roll three previous values forward to generate the next Tribonacci number.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Space Optimized)",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/n-th-tribonacci-number#4-dynamic-programming-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/n-th-tribonacci-number/",
+      "bounds": [
+        "0 ≤ n ≤ 37",
+        "answer ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "house-robber": {
+    "hint": "At each house compare skipping it with taking it plus the best total two positions back.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of houses",
+      "url": "https://neetcode.io/problems/house-robber/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/house-robber/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 100",
+        "0 ≤ nums[i] ≤ 400"
+      ]
+    }
+  },
+  "house-robber-ii": {
+    "hint": "Handle one house directly. Compare two linear robber runs, one excluding the first house and the other excluding the last.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = number of houses",
+      "url": "https://neetcode.io/problems/house-robber-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/house-robber-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 100",
+        "0 ≤ nums[i] ≤ 1000"
+      ]
+    }
+  },
+  "longest-palindromic-substring": {
+    "hint": "Expand around each character and each gap between characters, retaining the longest interval seen. Keep just its boundaries until you return the result.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "variables": "n = string length",
+      "url": "https://neetcode.io/problems/longest-palindromic-substring/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-palindromic-substring/",
+      "bounds": [
+        "1 ≤ s.length ≤ 1000"
+      ]
+    }
+  },
+  "palindromic-substrings": {
+    "hint": "Try every odd and even center. Expand while the outer characters match, counting one new substring for each successful expansion.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "variables": "n = string length",
+      "url": "https://neetcode.io/problems/palindromic-substrings/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/palindromic-substrings/",
+      "bounds": [
+        "1 ≤ s.length ≤ 1000"
+      ]
+    }
+  },
+  "decode-ways": {
+    "hint": "At each position count valid one-digit and two-digit endings. Reject leading zeros in each encoding and roll the last two DP counts.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = string length",
+      "url": "https://neetcode.io/problems/decode-ways/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/decode-ways/",
+      "bounds": [
+        "1 ≤ s.length ≤ 100"
+      ]
+    }
+  },
+  "coin-change": {
+    "hint": "For every partial amount store the least coins needed. Try each denomination as the last coin. A is the target amount.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * t)",
+      "space": "O(t)",
+      "variables": "n = number of coins and t = given amount",
+      "url": "https://neetcode.io/problems/coin-change/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/coin-change/",
+      "bounds": [
+        "1 ≤ coins.length ≤ 12",
+        "1 ≤ coins[i] ≤ 2^31 - 1",
+        "0 ≤ amount ≤ 10^4"
+      ]
+    }
+  },
+  "maximum-product-subarray": {
+    "hint": "Keep both the greatest and smallest product ending at the current element because a negative value can swap their roles.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/maximum-product-subarray/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-product-subarray/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 2 * 10^4",
+        "-10 ≤ nums[i] ≤ 10"
+      ]
+    }
+  },
+  "word-break": {
+    "hint": "Follow trie edges from reachable text positions and mark the endpoints of matching words. D is total dictionary characters and L maximum word length.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * m * t)",
+      "space": "O(n)",
+      "variables": "n = length of s, m = number of words in wordDict, and t = maximum length of any word in wordDict",
+      "url": "https://neetcode.io/problems/word-break/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-break/",
+      "bounds": [
+        "1 ≤ s.length ≤ 300",
+        "1 ≤ wordDict.length ≤ 1000",
+        "1 ≤ wordDict[i].length ≤ 20"
+      ]
+    }
+  },
+  "longest-increasing-subsequence": {
+    "hint": "Maintain the smallest tail of an increasing subsequence at each length. Binary-search for the first tail at least as large as each new value.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(n^2)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/longest-increasing-subsequence/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-increasing-subsequence/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 2500",
+        "-10^4 ≤ nums[i] ≤ 10^4"
+      ],
+      "followUp": "O(n log n) time."
+    }
+  },
+  "partition-equal-subset-sum": {
+    "hint": "If the total is even, use a descending subset-sum DP up to half the total. Descending order uses each occurrence once.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * t)",
+      "space": "O(n * t)",
+      "variables": "n = array length and t = half the sum of the array elements",
+      "url": "https://neetcode.io/problems/partition-equal-subset-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/partition-equal-subset-sum/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 200",
+        "1 ≤ nums[i] ≤ 100"
+      ]
+    }
+  },
+  "combination-sum-iv": {
+    "hint": "Compute counts by increasing target sum. For each sum, try every number as the last choice so different orders count separately.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bottom-Up) - II",
+      "time": "O(n * t)",
+      "space": "O(t)",
+      "url": "https://neetcode.io/solutions/combination-sum-iv#4-dynamic-programming-bottom-up-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum-iv/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 200",
+        "1 ≤ nums[i] ≤ 1000",
+        "1 ≤ target ≤ 1000"
+      ]
+    }
+  },
+  "perfect-squares": {
+    "hint": "First test whether n is a square. Remove factors of four and apply the three-square theorem, then test whether n is a sum of two squares.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Math",
+      "time": "O(√(n))",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/perfect-squares#5-math"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/perfect-squares/",
+      "bounds": [
+        "1 ≤ n ≤ 10^4"
+      ]
+    }
+  },
+  "integer-break": {
+    "hint": "Use factors of three whenever possible, replacing a leftover one plus a three by two plus two. Handle small n separately.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Math (Optimal)",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/integer-break#7-math-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/integer-break/",
+      "bounds": [
+        "2 ≤ n ≤ 58"
+      ]
+    }
+  },
+  "stone-game-iii": {
+    "hint": "Compute the best score difference from each suffix. Try taking one, two or three stones and subtract the opponent's best continuation.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Space Optimized)",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/stone-game-iii#4-dynamic-programming-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/stone-game-iii/",
+      "bounds": [
+        "1 ≤ stoneValue.length ≤ 5 * 10^4",
+        "-1000 ≤ stoneValue[i] ≤ 1000"
+      ]
+    }
+  },
+  "count-paths": {
+    "hint": "Count paths with the binomial coefficient choosing the positions of the shorter direction's moves. Build it multiplicatively using exact arithmetic.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count in the grid",
+      "url": "https://neetcode.io/problems/count-paths/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/unique-paths/",
+      "bounds": [
+        "1 ≤ m, n ≤ 100"
+      ]
+    }
+  },
+  "unique-paths-ii": {
+    "hint": "Use one DP row of path counts. Reset blocked cells to zero and accumulate from above and left.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Space Optimized)",
+      "time": "O(m * n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/unique-paths-ii#3-dynamic-programming-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/unique-paths-ii/",
+      "bounds": [
+        "m == obstacleGrid.length",
+        "n == obstacleGrid[i].length",
+        "1 ≤ m, n ≤ 100"
+      ]
+    }
+  },
+  "minimum-path-sum": {
+    "hint": "Add each cell's cost to the cheaper of its top and left predecessors. Reuse one row of totals.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Space Optimized)",
+      "time": "O(m * n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/minimum-path-sum#4-dynamic-programming-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-path-sum/",
+      "bounds": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 ≤ m, n ≤ 200",
+        "0 ≤ grid[i][j] ≤ 200"
+      ]
+    }
+  },
+  "longest-common-subsequence": {
+    "hint": "Compute LCS lengths for prefix pairs. Equal letters extend the diagonal prefix, otherwise take the better of the two shorter options.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = length of text1 and n = length of text2",
+      "url": "https://neetcode.io/problems/longest-common-subsequence/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-common-subsequence/",
+      "bounds": [
+        "1 ≤ text1.length, text2.length ≤ 1000"
+      ]
+    }
+  },
+  "last-stone-weight-ii": {
+    "hint": "Represent achievable subset sums as bits. For each weight w, OR the current bitset with itself shifted by w. Find the reachable sum closest to half the total.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bitset)",
+      "time": "O(n * m)",
+      "space": "O(m)",
+      "url": "https://neetcode.io/solutions/last-stone-weight-ii#6-dynamic-programming-bitset"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/last-stone-weight-ii/",
+      "bounds": [
+        "1 ≤ stones.length ≤ 30",
+        "1 ≤ stones[i] ≤ 100"
+      ]
+    }
+  },
+  "buy-and-sell-crypto-with-cooldown": {
+    "hint": "Track the best holding, selling and resting states day by day. A purchase can follow a resting day but cannot immediately follow a sale.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/buy-and-sell-crypto-with-cooldown/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/",
+      "bounds": [
+        "1 ≤ prices.length ≤ 5000",
+        "0 ≤ prices[i] ≤ 1000"
+      ]
+    }
+  },
+  "coin-change-ii": {
+    "hint": "Loop over denominations first and amounts upward second to count unordered combinations with unlimited reuse.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * a)",
+      "space": "O(n * a)",
+      "variables": "n = number of coins and a = given amount",
+      "url": "https://neetcode.io/problems/coin-change-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/coin-change-ii/",
+      "bounds": [
+        "1 ≤ coins.length ≤ 300",
+        "1 ≤ coins[i] ≤ 5000",
+        "0 ≤ amount ≤ 5000"
+      ]
+    }
+  },
+  "target-sum": {
+    "hint": "Convert sign assignment to subset sum for (sum + target)/2. Reject impossible parity or bounds and count subsets, including zeroes.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n * m)",
+      "space": "O(n * m)",
+      "variables": "n = array length and m = sum of all the elements in the array",
+      "url": "https://neetcode.io/problems/target-sum/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/target-sum/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 20",
+        "0 ≤ nums[i] ≤ 1000",
+        "0 ≤ sum(nums[i]) ≤ 1000",
+        "-1000 ≤ target ≤ 1000"
+      ]
+    }
+  },
+  "interleaving-string": {
+    "hint": "Use DP over prefix lengths. Each step must take the next needed character from one of the two strings; check the total length first.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = length of s1 and n = length of s2",
+      "url": "https://neetcode.io/problems/interleaving-string/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/interleaving-string/",
+      "bounds": [
+        "0 ≤ s1.length, s2.length ≤ 100",
+        "0 ≤ s3.length ≤ 200"
+      ],
+      "followUp": "O(len(s2)) additional space."
+    }
+  },
+  "stone-game": {
+    "hint": "The even pile count and odd total let the first player guarantee the more valuable original index parity by always taking from it.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Return TRUE",
+      "time": "O(1)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/stone-game#5-return-true"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/stone-game/",
+      "bounds": [
+        "2 ≤ piles.length ≤ 500",
+        "1 ≤ piles[i] ≤ 500"
+      ]
+    }
+  },
+  "stone-game-ii": {
+    "hint": "Memoize the best suffix score by position and M. For each legal take subtract the opponent's best score from the remaining total.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Bottom-Up) + Suffix Sum",
+      "time": "O(n^3)",
+      "space": "O(n^2)",
+      "url": "https://neetcode.io/solutions/stone-game-ii#4-dynamic-programming-bottom-up-suffix-sum"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/stone-game-ii/",
+      "bounds": [
+        "1 ≤ piles.length ≤ 100",
+        "1 ≤ piles[i] ≤ 10^4"
+      ]
+    }
+  },
+  "longest-increasing-path-in-matrix": {
+    "hint": "Memoize the longest increasing path starting at each cell. Strict increases prevent cycles.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = row count and n = column count",
+      "url": "https://neetcode.io/problems/longest-increasing-path-in-matrix/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 ≤ m, n ≤ 200",
+        "0 ≤ matrix[i][j] ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "count-subsequences": {
+    "hint": "Count ways to form each target prefix. Scan source characters and update target positions backward so each index is used once.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = length of s and n = length of t",
+      "url": "https://neetcode.io/problems/count-subsequences/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/distinct-subsequences/",
+      "bounds": [
+        "1 ≤ s.length, t.length ≤ 1000"
+      ]
+    }
+  },
+  "edit-distance": {
+    "hint": "Compute edit distances for prefix pairs using insertion, deletion and replacement. Keep only the previous row and current row.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m and n are the lengths of the strings word1 and word2, respectively",
+      "url": "https://neetcode.io/problems/edit-distance/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/edit-distance/",
+      "bounds": [
+        "0 ≤ word1.length, word2.length ≤ 500"
+      ]
+    }
+  },
+  "burst-balloons": {
+    "hint": "Choose the last balloon burst in each interval. Its neighbors are then known, so combine the optimal left and right intervals.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^3)",
+      "space": "O(n^2)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/burst-balloons/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/burst-balloons/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 300",
+        "0 ≤ nums[i] ≤ 100"
+      ]
+    }
+  },
+  "regular-expression-matching": {
+    "hint": "Use DP on text and pattern prefixes. A starred atom may be skipped, or consume one matching character while remaining available.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m * n)",
+      "space": "O(m * n)",
+      "variables": "m = length of s and n = length of p",
+      "url": "https://neetcode.io/problems/regular-expression-matching/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/regular-expression-matching/",
+      "bounds": [
+        "1 ≤ s.length ≤ 20",
+        "1 ≤ p.length ≤ 20"
+      ]
+    }
+  },
+  "lemonade-change": {
+    "hint": "Track five- and ten-unit bills. Give change for a twenty with ten plus five whenever possible, preserving small bills for later customers.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration - II",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/lemonade-change#2-iteration-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lemonade-change/",
+      "bounds": [
+        "1 ≤ bills.length ≤ 10^5"
+      ]
+    }
+  },
+  "maximum-subarray": {
+    "hint": "Use Kadane's recurrence: choose between starting at this value and extending the previous best ending here.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/maximum-subarray/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-subarray/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^5",
+        "-10^4 ≤ nums[i] ≤ 10^4"
+      ],
+      "followUp": "After the linear solution, try divide and conquer."
+    }
+  },
+  "maximum-sum-circular-subarray": {
+    "hint": "Compare the maximum ordinary subarray with total minus minimum subarray. Handle all-negative input so the wrapped choice cannot be empty.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Kadane's Algorithm",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/maximum-sum-circular-subarray#3-kadane39s-algorithm"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-sum-circular-subarray/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 3 * 10^4",
+        "-3 * 10^4 ≤ nums[i] ≤ 3 * 10^4"
+      ]
+    }
+  },
+  "longest-turbulent-subarray": {
+    "hint": "Track lengths ending in an upward and a downward comparison. Ties reset both lengths.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/longest-turbulent-subarray#5-iteration"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-turbulent-subarray/",
+      "bounds": [
+        "1 ≤ arr.length ≤ 4 * 10^4",
+        "0 ≤ arr[i] ≤ 10^9"
+      ]
+    }
+  },
+  "jump-game": {
+    "hint": "Scan while indices remain reachable and update the farthest reachable index with each jump allowance.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = size of input array",
+      "url": "https://neetcode.io/problems/jump-game/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/jump-game/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^4",
+        "0 ≤ nums[i] ≤ 10^5"
+      ]
+    }
+  },
+  "jump-game-ii": {
+    "hint": "Scan reachable ranges as BFS layers. When the current layer ends, take one more jump to the farthest position found in that layer.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/jump-game-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/jump-game-ii/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 10^4",
+        "0 ≤ nums[i] ≤ 1000"
+      ]
+    }
+  },
+  "jump-game-vii": {
+    "hint": "Use a sliding count of reachable predecessor positions within the allowed jump interval. Mark a zero reachable if that count is positive.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Dynamic Programming (Two Pointers)",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/jump-game-vii#4-dynamic-programming-two-pointers"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/jump-game-vii/",
+      "bounds": [
+        "2 ≤ s.length ≤ 10^5",
+        "s[0] == '0'",
+        "1 ≤ minJump ≤ maxJump < s.length"
+      ]
+    }
+  },
+  "gas-station": {
+    "hint": "Track total surplus and current segment surplus. Whenever a segment goes negative, its next index is the next candidate start.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/gas-station/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/gas-station/",
+      "bounds": [
+        "n == gas.length == cost.length",
+        "1 ≤ n ≤ 10^5",
+        "0 ≤ gas[i], cost[i] ≤ 10^4"
+      ]
+    }
+  },
+  "hand-of-straights": {
+    "hint": "Count card multiplicities and process sorted distinct starts. Whenever a start has c copies left, reserve c copies of each value in its consecutive group.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/hand-of-straights/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/hand-of-straights/",
+      "bounds": [
+        "1 ≤ hand.length ≤ 10^4",
+        "0 ≤ hand[i] ≤ 10^9",
+        "1 ≤ groupSize ≤ hand.length"
+      ]
+    }
+  },
+  "dota2-senate": {
+    "hint": "Maintain queues of Radiant and Dire turn indices. The earlier index bans the other and rejoins with index increased by the original length.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Greedy",
+      "time": "O(n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/dota2-senate#3-greedy"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/dota2-senate/",
+      "bounds": [
+        "n == senate.length",
+        "1 ≤ n ≤ 10^4"
+      ]
+    }
+  },
+  "merge-triplets-to-form-target": {
+    "hint": "Discard triplets exceeding any target coordinate. Check whether each target coordinate appears in at least one surviving triplet.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/merge-triplets-to-form-target/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-triplets-to-form-target-triplet/",
+      "bounds": [
+        "1 ≤ triplets.length ≤ 10^5",
+        "triplets[i].length == target.length == 3",
+        "1 ≤ a i , b i , c i , x, y, z ≤ 1000"
+      ]
+    }
+  },
+  "partition-labels": {
+    "hint": "Record the last occurrence of each letter. Extend a part to cover all last occurrences it reaches and cut when the scan reaches its boundary.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(m)",
+      "variables": "n = length of s and m = number of unique characters in the string s",
+      "url": "https://neetcode.io/problems/partition-labels/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/partition-labels/",
+      "bounds": [
+        "1 ≤ s.length ≤ 500"
+      ]
+    }
+  },
+  "valid-parenthesis-string": {
+    "hint": "Track the lowest and highest possible unmatched-open counts through the scan. Clamp the low bound at zero and reject a negative high bound.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = length",
+      "url": "https://neetcode.io/problems/valid-parenthesis-string/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-parenthesis-string/",
+      "bounds": [
+        "1 ≤ s.length ≤ 100"
+      ]
+    }
+  },
+  "candy": {
+    "hint": "Scan slopes, counting the lengths of rising and falling runs. Give the shared peak enough candies for the larger slope and count flat ratings once each.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Greedy (One Pass)",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/candy#3-greedy-one-pass"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/candy/",
+      "bounds": [
+        "1 ≤ n == ratings.length ≤ 5 * 10^4",
+        "0 ≤ ratings[i] ≤ 5 * 10^4"
+      ]
+    }
+  },
+  "insert-new-interval": {
+    "hint": "Copy intervals before the insertion, merge all intervals that overlap it, then append the remaining intervals.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1) auxiliary",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/insert-new-interval/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/insert-interval/",
+      "bounds": [
+        "0 ≤ intervals.length ≤ 10^4",
+        "intervals[i].length == 2",
+        "0 ≤ start i ≤ end i ≤ 10^5",
+        "newInterval.length == 2",
+        "0 ≤ start ≤ end ≤ 10^5"
+      ]
+    }
+  },
+  "merge-intervals": {
+    "hint": "Sort by start and merge any next interval starting before or at the current end.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/merge-intervals/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-intervals/",
+      "bounds": [
+        "1 ≤ intervals.length ≤ 10^4",
+        "intervals[i].length == 2",
+        "0 ≤ start i ≤ end i ≤ 10^4"
+      ]
+    }
+  },
+  "non-overlapping-intervals": {
+    "hint": "Select compatible intervals by earliest finishing time. Subtract the number kept from the original count.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/non-overlapping-intervals/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+      "bounds": [
+        "1 ≤ intervals.length ≤ 10^5",
+        "intervals[i].length == 2",
+        "-5 * 10^4 ≤ start i < end i ≤ 5 * 10^4"
+      ]
+    }
+  },
+  "meeting-schedule": {
+    "hint": "Sort meetings by start time and check whether any start precedes the end of the previous meeting.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/meeting-schedule/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/meeting-rooms/",
+      "bounds": []
+    }
+  },
+  "meeting-schedule-ii": {
+    "hint": "Sort start and end times separately. Sweep them together, processing ends before equal-time starts, and track maximum simultaneous meetings.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/meeting-schedule-ii/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+      "bounds": []
+    }
+  },
+  "meeting-rooms-iii": {
+    "hint": "Sort by start time. Track free rooms in an index heap and busy rooms by release time then index. Delay a meeting when all rooms are busy.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Two Min-Heaps",
+      "time": "O(m log m + m log n)",
+      "space": "O(n)",
+      "url": "https://neetcode.io/solutions/meeting-rooms-iii#2-two-min-heaps"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/meeting-rooms-iii",
+      "bounds": [
+        "1 ≤ n ≤ 100",
+        "1 ≤ meetings.length ≤ 10^5",
+        "meetings[i].length == 2",
+        "0 ≤ start i < end i ≤ 5 * 10^5"
+      ]
+    }
+  },
+  "minimum-interval-including-query": {
+    "hint": "Sort queries with their original indices and intervals by start. Maintain a min-heap by inclusive length and discard expired candidates before answering each query.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n log n + m log m)",
+      "space": "O(n + m)",
+      "variables": "m = size of the array queries and n = size of the array intervals",
+      "url": "https://neetcode.io/problems/minimum-interval-including-query/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-interval-to-include-each-query/",
+      "bounds": [
+        "1 ≤ intervals.length ≤ 10^5",
+        "1 ≤ queries.length ≤ 10^5",
+        "intervals[i].length == 2",
+        "1 ≤ left i ≤ right i ≤ 10^7",
+        "1 ≤ queries[j] ≤ 10^7"
+      ]
+    }
+  },
+  "excel-sheet-column-title": {
+    "hint": "Subtract one before each base-26 remainder to account for letters being numbered from one. Collect letters in reverse order.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration",
+      "time": "O(log n)",
+      "space": "O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/excel-sheet-column-title#2-iteration"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/excel-sheet-column-title/",
+      "bounds": [
+        "1 ≤ columnNumber ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "greatest-common-divisor-of-strings": {
+    "hint": "Use the gcd of the two lengths as the candidate prefix length. Compare every character with the corresponding position in that repeated prefix. Create the output string only if all comparisons pass.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Greatest Common Divisor (Space Optimized)",
+      "time": "O(m + n)",
+      "space": "O(g) output",
+      "url": "https://neetcode.io/solutions/greatest-common-divisor-of-strings#4-greatest-common-divisor-space-optimized"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/greatest-common-divisor-of-strings/",
+      "bounds": [
+        "1 ≤ str1.length, str2.length ≤ 1000"
+      ]
+    }
+  },
+  "insert-greatest-common-divisors-in-linked-list": {
+    "hint": "At each original pair insert a node containing the Euclidean gcd, then advance directly to the next original node. V is the largest value.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Simulation",
+      "time": "O(n * log (min(a, b)))",
+      "space": "O(n) new nodes; O(1) auxiliary",
+      "url": "https://neetcode.io/solutions/insert-greatest-common-divisors-in-linked-list#1-simulation"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/",
+      "bounds": [
+        "1 ≤ Node.val ≤ 1000"
+      ]
+    }
+  },
+  "transpose-matrix": {
+    "hint": "Create the output with swapped dimensions and copy each cell to its reversed pair of indices.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration - II",
+      "time": "O(n * m)",
+      "space": "O(n * m)",
+      "url": "https://neetcode.io/solutions/transpose-matrix#2-iteration-ii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/transpose-matrix",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 ≤ m, n ≤ 1000",
+        "1 ≤ m * n ≤ 10^5",
+        "-10^9 ≤ matrix[i][j] ≤ 10^9"
+      ]
+    }
+  },
+  "rotate-matrix": {
+    "hint": "Transpose across the main diagonal, then reverse each row in place.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n^2)",
+      "space": "O(1)",
+      "variables": "n = length of the side of the given square matrix",
+      "url": "https://neetcode.io/problems/rotate-matrix/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-image/",
+      "bounds": [
+        "n == matrix.length == matrix[i].length",
+        "1 ≤ n ≤ 20",
+        "-1000 ≤ matrix[i][j] ≤ 1000"
+      ],
+      "requirement": "Rotate in place without a second matrix."
+    }
+  },
+  "spiral-matrix": {
+    "hint": "Shrink top, right, bottom and left bounds as each outer edge is visited. Check bounds before walking the last row or column twice.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m*n)",
+      "space": "O(1) auxiliary",
+      "variables": "m = row count and n = column count",
+      "url": "https://neetcode.io/problems/spiral-matrix/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/spiral-matrix/",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 ≤ m, n ≤ 10",
+        "-100 ≤ matrix[i][j] ≤ 100"
+      ]
+    }
+  },
+  "set-zeroes-in-matrix": {
+    "hint": "Use the first row and column as markers. Save whether they initially contained a zero, mark the remaining matrix, then apply markers in a second pass.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m*n)",
+      "space": "O(1)",
+      "variables": "m = row count and n = column count",
+      "url": "https://neetcode.io/problems/set-zeroes-in-matrix/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/set-matrix-zeroes/",
+      "bounds": [
+        "m == matrix.length",
+        "n == matrix[0].length",
+        "1 ≤ m, n ≤ 200",
+        "-2^31 ≤ matrix[i][j] ≤ 2^31 - 1"
+      ],
+      "requirement": "Update the matrix in place."
+    }
+  },
+  "non-cyclical-number": {
+    "hint": "Use Floyd's cycle detection on the sum-of-squared-digits transformation. If the cycle reaches one, return true.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log n)",
+      "space": "O(log n)",
+      "variables": "n = given integer",
+      "url": "https://neetcode.io/problems/non-cyclical-number/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/happy-number/",
+      "bounds": [
+        "1 ≤ n ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "plus-one": {
+    "hint": "Propagate a carry from the least significant digit. Stop when the carry clears, and prepend one if it survives every digit.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/plus-one/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/plus-one/",
+      "bounds": [
+        "1 ≤ digits.length ≤ 100",
+        "0 ≤ digits[i] ≤ 9"
+      ]
+    }
+  },
+  "roman-to-integer": {
+    "hint": "Scan digit values and subtract any symbol that precedes a larger symbol. Otherwise add it.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Hash Map",
+      "time": "O(n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/roman-to-integer#1-hash-map"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/roman-to-integer/",
+      "bounds": [
+        "1 ≤ s.length ≤ 15"
+      ]
+    }
+  },
+  "pow-x-n": {
+    "hint": "Use exponentiation by squaring. Square the base each step, multiply the result when the exponent bit is set, and invert the base for negative powers.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(log n)",
+      "space": "O(log n)",
+      "variables": "n = given integer",
+      "url": "https://neetcode.io/problems/pow-x-n/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/powx-n/",
+      "bounds": [
+        "-100.0 < x < 100.0",
+        "-2^31 ≤ n ≤ 2^31-1",
+        "n > 0",
+        "-10^4 ≤ x^n ≤ 10^4"
+      ]
+    }
+  },
+  "multiply-strings": {
+    "hint": "Accumulate digit-pair products into an array indexed by place value and propagate carries to produce the decimal digits.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(m*n)",
+      "space": "O(m+n)",
+      "variables": "m = length of num1 and n = length of num2",
+      "url": "https://neetcode.io/problems/multiply-strings/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/multiply-strings/",
+      "bounds": [
+        "1 ≤ num1.length, num2.length ≤ 200"
+      ]
+    }
+  },
+  "count-squares": {
+    "hint": "Store point frequencies. For a query choose a possible opposite corner on a nonzero diagonal, then multiply frequencies of the other two corners and the opposite corner.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "add O(1), count O(n)",
+      "space": "O(n)",
+      "variables": "n = total number of points",
+      "url": "https://neetcode.io/problems/count-squares/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/detect-squares/",
+      "bounds": [
+        "point.length == 2",
+        "0 ≤ x, y ≤ 1000"
+      ]
+    }
+  },
+  "single-number": {
+    "hint": "XOR the entries. Paired values cancel and the unpaired value remains.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/single-number/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/single-number/",
+      "bounds": [
+        "1 ≤ nums.length ≤ 3 * 10^4",
+        "-3 * 10^4 ≤ nums[i] ≤ 3 * 10^4"
+      ],
+      "requirement": "O(n) time and O(1) additional space."
+    }
+  },
+  "number-of-one-bits": {
+    "hint": "Clear the lowest set bit with n AND (n−1) until n is zero.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1)",
+      "space": "O(1)",
+      "variables": "",
+      "url": "https://neetcode.io/problems/number-of-one-bits/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "bounds": [
+        "1 ≤ n ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "counting-bits": {
+    "hint": "For each i use the count at i shifted right by one, plus its least significant bit.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(n)",
+      "variables": "n = given integer",
+      "url": "https://neetcode.io/problems/counting-bits/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/counting-bits/",
+      "bounds": [
+        "0 ≤ n ≤ 10^5"
+      ],
+      "followUp": "Try a single pass in O(n) time."
+    }
+  },
+  "add-binary": {
+    "hint": "Walk the strings from the right, emitting the low bit of each digit sum and carrying the rest. Reverse the output buffer once.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Iteration (Optimal)",
+      "time": "O(max(m, n))",
+      "space": "O(max(m, n))",
+      "url": "https://neetcode.io/solutions/add-binary#2-iteration-optimal"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/add-binary/",
+      "bounds": [
+        "1 ≤ a.length, b.length ≤ 10^4"
+      ]
+    }
+  },
+  "reverse-bits": {
+    "hint": "Read and shift one bit at a time for exactly 32 iterations, treating the result as unsigned.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1)",
+      "space": "O(1)",
+      "variables": "",
+      "url": "https://neetcode.io/problems/reverse-bits/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-bits/",
+      "bounds": [
+        "0 ≤ n ≤ 2^31 - 2"
+      ]
+    }
+  },
+  "missing-number": {
+    "hint": "XOR each index and its value together with n. All present values cancel with their indices.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(n)",
+      "space": "O(1)",
+      "variables": "n = array length",
+      "url": "https://neetcode.io/problems/missing-number/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/missing-number/",
+      "bounds": [
+        "n == nums.length",
+        "1 ≤ n ≤ 10^4",
+        "0 ≤ nums[i] ≤ n"
+      ],
+      "followUp": "O(n) time and O(1) extra space."
+    }
+  },
+  "sum-of-two-integers": {
+    "hint": "XOR gives the partial sum and shifted AND gives the carry. Repeat until no carry remains. Limit operations to the chosen signed width, including in Python.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1)",
+      "space": "O(1)",
+      "variables": "",
+      "url": "https://neetcode.io/problems/sum-of-two-integers/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-two-integers/",
+      "bounds": [
+        "-1000 ≤ a, b ≤ 1000"
+      ]
+    }
+  },
+  "reverse-integer": {
+    "hint": "Pop decimal digits and accumulate the reversed value. Check the signed 32-bit bound as digits are appended.",
+    "neetcode": {
+      "kind": "Recommended target",
+      "time": "O(1)",
+      "space": "O(1)",
+      "variables": "",
+      "url": "https://neetcode.io/problems/reverse-integer/question"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-integer/",
+      "bounds": [
+        "-2^31 ≤ x ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "bitwise-and-of-numbers-range": {
+    "hint": "Right-shift both endpoints until they share a prefix, then shift the prefix back. Bits below the first difference are cleared in the range AND.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Bit Manipulation - III",
+      "time": "O(1)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/bitwise-and-of-numbers-range#4-bit-manipulation-iii"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/bitwise-and-of-numbers-range",
+      "bounds": [
+        "0 ≤ left ≤ right ≤ 2^31 - 1"
+      ]
+    }
+  },
+  "minimum-array-end": {
+    "hint": "Preserve all one-bits of x and place the bits of n−1 into x's zero positions from least to most significant. Use exact wide integers during construction.",
+    "neetcode": {
+      "kind": "Published solution",
+      "method": "Bit Manipulation",
+      "time": "O(log n)",
+      "space": "O(1)",
+      "url": "https://neetcode.io/solutions/minimum-array-end#3-bit-manipulation"
+    },
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-array-end/",
+      "bounds": [
+        "1 ≤ n, x ≤ 10^8"
+      ]
+    }
+  }
+}
