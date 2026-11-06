@@ -1,6 +1,7 @@
 import { icon, esc, difficulty, topicIcons, starter, contract } from './ui.js';
 import { testCode } from './runner.js';
 import { runPython } from './python-runner.js';
+import { submitCode } from './submit.js';
 import {
   openProgress,
   readProgress,
@@ -461,7 +462,7 @@ function problemPage(p) {
     ${
       editorTab === 'code'
         ? `<div class="editor-shell"><div class="line-numbers" aria-hidden="true"></div><textarea id="code" aria-label="${language === 'python' ? 'Python' : 'JavaScript'} solution" autocapitalize="off" autocomplete="off" spellcheck="false" wrap="off"></textarea></div>
-    <div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Saved locally' : 'Session only'}</span><button class="primary run" data-action="run" ${runController ? 'disabled' : ''}>${icon('play', 14)} ${runController ? 'Running…' : 'Run samples'}</button></div><div class="result-box" aria-live="polite"></div><p class="run-limits">4 s per sample suite. ${language === 'python' ? 'Python has a 128 MiB interpreter heap limit.' : 'JavaScript memory usage is managed by your browser.'}</p>`
+    <div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Saved locally' : 'Session only'}</span><div class="judge-actions"><button class="secondary" data-action="run" ${runController ? 'disabled' : ''}>${icon('play', 14)} Run samples</button><button class="primary run" data-action="submit" ${runController ? 'disabled' : ''}>${icon('arrow', 14)} Submit</button></div></div><div class="result-box" aria-live="polite"></div><p class="run-limits">Samples: 4 s per suite. Submit: 3 s per case. ${language === 'python' ? 'Python has a 128 MiB interpreter heap limit.' : 'JavaScript memory usage is managed by your browser.'}</p>`
         : `<textarea id="notes" aria-label="Problem notes" placeholder="Write down your approach, complexity, or a detail to revisit." spellcheck="true"></textarea><div class="editor-controls"><span class="autosave"><i></i> ${storageOK ? 'Notes saved locally' : 'Session only'}</span></div>`
     }
     </section></div>`;
@@ -490,7 +491,16 @@ function paintResults() {
   const el = document.querySelector('.result-box');
   if (!el) return;
   if (!lastResults) {
-    el.innerHTML = `<h3>${icon('terminal', 16)} Sample results</h3><p>Run your solution to check it against the examples.</p>`;
+    el.innerHTML = `<h3>${icon('terminal', 16)} Judge results</h3><p>Run the examples, or submit to check hidden cases and larger inputs.</p>`;
+    return;
+  }
+  if (lastResults.submission) {
+    const r = lastResults;
+    const passed = r.results.filter((x) => x.verdict === 'Passed').length;
+    el.innerHTML = `<h3 class="${r.verdict === 'Accepted' ? 'accepted' : ''}">${icon(r.verdict === 'Accepted' ? 'check' : 'terminal', 17)} ${esc(r.verdict)}</h3>
+    <p>${passed} / ${r.cases.length} passed · ${r.limit / 1000} s limit per case${r.heapMiB != null ? ' · ' + r.heapMiB.toFixed(1) + ' MiB Python heap capacity' : ''}</p>
+    ${r.results.map((v, i) => `<div class="judge-case"><div><b>${esc(r.cases[i].label)}</b><small>${esc(r.cases[i].size)}</small></div><div class="${v.verdict === 'Passed' ? 'case-pass' : 'case-fail'}">${esc(v.verdict)}<small>${v.verdict === 'Time limit exceeded' ? '≥ ' : ''}${v.elapsedMs.toFixed(1)} ms</small></div></div>${v.error ? `<pre class="judge-error">${esc(v.error)}</pre>` : ''}`).join('')}
+    <p>Local PatternLab tests. Timings include input and output conversion and exclude runtime startup.</p>`;
     return;
   }
   if (lastResults.error) {
@@ -600,7 +610,20 @@ function openTopics() {
   dialog.innerHTML = `<div class="dialog-head"><h2>Browse topics</h2><button class="icon-btn" data-action="dismiss" aria-label="Close topic list">${icon('x')}</button></div><div class="topic-grid">${topics.map((t) => `<a href="${esc(topicURL(t))}">${icon(topicIcons[t] || 'nodes', 17)}<span>${esc(t)}</span><small>${problems.filter((p) => p.category === t).length}</small></a>`).join('')}</div>`;
   dialog.showModal();
 }
-async function run() {
+function setJudgeButtons(busy, mode, label) {
+  for (const [action, glyph, title] of [
+    ['run', 'play', 'Run samples'],
+    ['submit', 'arrow', 'Submit']
+  ]) {
+    const btn = document.querySelector('[data-action="' + action + '"]');
+    if (btn) {
+      btn.disabled = busy;
+      btn.innerHTML =
+        icon(glyph, 14) + ' ' + (busy && action === mode ? label : title);
+    }
+  }
+}
+async function run(mode = 'run') {
   if (
     runController ||
     route.view !== 'problem' ||
@@ -611,15 +634,29 @@ async function run() {
     code = document.querySelector('#code').value;
   const controller = new AbortController();
   runController = controller;
-  const btn = document.querySelector('[data-action="run"]');
-  btn.disabled = true;
-  btn.textContent = 'Running…';
+  lastResults = null;
+  paintResults();
+  setJudgeButtons(true, mode, mode === 'submit' ? 'Submitting…' : 'Running…');
   try {
     let report;
-    if (language === 'python') {
-      btn.textContent = 'Loading Python…';
+    if (mode === 'submit') {
+      report = await submitCode(p, language, code, controller.signal, (r) => {
+        lastResults = r;
+        paintResults();
+      });
+      if (
+        !controller.signal.aborted &&
+        report.verdict === 'Accepted' &&
+        !solved(p) &&
+        !isRetry()
+      ) {
+        update(p.slug, { solved: true });
+        refreshProgressView();
+      }
+    } else if (language === 'python') {
+      setJudgeButtons(true, mode, 'Loading Python…');
       report = await runPython(p, code, controller.signal, () => {
-        btn.textContent = 'Running…';
+        setJudgeButtons(true, mode, 'Running…');
       });
     } else report = { results: await testCode(p, code, controller.signal) };
     if (!controller.signal.aborted) lastResults = { ...report, p };
@@ -628,11 +665,7 @@ async function run() {
   } finally {
     if (runController === controller) {
       runController = null;
-      const current = document.querySelector('[data-action="run"]');
-      if (current) {
-        current.disabled = false;
-        current.innerHTML = icon('play', 14) + ' Run samples';
-      }
+      setJudgeButtons(false);
       paintResults();
     }
   }
@@ -718,7 +751,7 @@ document.addEventListener('click', (e) => {
     editorTab = name === 'code-tab' ? 'code' : 'notes';
     renderContent();
   }
-  if (name === 'run') run();
+  if (name === 'run' || name === 'submit') run(name);
 });
 dialog.addEventListener('click', (e) => {
   if (e.target === dialog) dialog.close();
@@ -735,11 +768,7 @@ document.addEventListener('input', (e) => {
       runController?.abort();
       runController = null;
       lastResults = null;
-      const runButton = document.querySelector('[data-action="run"]');
-      if (runButton) {
-        runButton.disabled = false;
-        runButton.innerHTML = icon('play', 14) + ' Run samples';
-      }
+      setJudgeButtons(false);
       paintResults();
     }
     update(route.slug, {
@@ -794,7 +823,7 @@ document.addEventListener('keydown', (e) => {
   }
   if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && e.target.id === 'code') {
     e.preventDefault();
-    run();
+    run(e.shiftKey ? 'submit' : 'run');
   }
   if (
     e.key === 'Tab' &&

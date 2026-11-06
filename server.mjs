@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { limitPythonHeap } from './runtime/memory-limit.mjs';
+import { submitAPI } from './runtime/submissions.mjs';
 
 const root = fileURLToPath(new URL('./dist/', import.meta.url));
 const port = Number(process.env.PORT || 4173);
@@ -33,6 +34,9 @@ const server = createServer(async (req, res) => {
     const pathname = decodeURIComponent(
       new URL(req.url, 'http://localhost').pathname
     );
+    if (pathname.startsWith('/api/submit/')) {
+      return await submitAPI(req, res, pathname, server.address().port);
+    }
     let file = path.resolve(
       root,
       '.' + (pathname === '/' ? '/index.html' : pathname)
@@ -66,9 +70,12 @@ const server = createServer(async (req, res) => {
     // for cross-origin reads, never browser progress or arbitrary local paths.
     if (
       pathname.startsWith('/runtime/') ||
-      ['/js/python-worker.js', '/js/judge.js', '/python/judge.py'].includes(
-        pathname
-      )
+      [
+        '/js/python-worker.js',
+        '/js/submit-worker.js',
+        '/js/judge.js',
+        '/python/judge.py'
+      ].includes(pathname)
     ) {
       res.setHeader('Access-Control-Allow-Origin', 'null');
     }

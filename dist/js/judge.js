@@ -305,7 +305,7 @@ function randomCopy(fn, values) {
     n.random == null ? null : copy.indexOf(n.random)
   ]);
 }
-function evaluateSample(problem, userCode, rawArgs) {
+export function evaluateSample(problem, userCode, rawArgs) {
   const { slug, methods, params } = problem;
   const args = structuredClone(rawArgs);
   const create = new Function(
